@@ -2,8 +2,8 @@
 const productModel = (sequelize, DataTypes) => {
   const Product = sequelize.define('Product', {
     id: {
-      type: DataTypes.NUMBER,
-      primaryKey: true
+      type: DataTypes.INTEGER,
+      primaryKey: true,
     },
     name: DataTypes.STRING,
     price: DataTypes.DECIMAL,

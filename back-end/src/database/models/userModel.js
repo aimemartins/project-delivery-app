@@ -3,8 +3,8 @@
 const UserModel = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: {
-      type: DataTypes.NUMBER,
-      primaryKey: true
+      type: DataTypes.INTEGER,
+      primaryKey: true,
     },
     name: DataTypes.STRING,
     email: DataTypes.STRING,
@@ -15,6 +15,18 @@ const UserModel = (sequelize, DataTypes) => {
     underscored: true,
     tableName: 'users',
   });
+
+  User.associate = (models) => {
+    User.hasMany(models.Sale, {
+      foreignKey: 'userId',
+      as: 'user'
+    });
+
+    User.hasMany(models.Sale, {
+      foreignKey: 'sellerId',
+      as: 'seller'
+    });
+  };
 
   return User;
 };
