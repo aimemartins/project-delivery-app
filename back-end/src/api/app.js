@@ -1,5 +1,9 @@
 const express = require('express');
-const { UserController, SaleController, ProductController } = require('../database/controller');
+const {
+  UserController,
+  SaleController,
+  ProductController,
+  SaleProductController } = require('../database/controller');
 const ErrorHandler = require('../database/middlewares/ErrorHandler');
 
 const app = express();
@@ -16,7 +20,8 @@ app.put('/sales/:id', SaleController.updateSale);
 
 app.get('/products', ProductController.getAll);
 
+app.get('/sales/products', SaleProductController.getAll);
+app.post('/sales/products', SaleProductController.createSaleProduct);
+
 app.use(ErrorHandler.handle);
 module.exports = app;
-
-// iniciando projeto.....
