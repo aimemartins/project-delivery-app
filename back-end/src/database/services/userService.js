@@ -13,13 +13,13 @@ const getAll = () => User.findAll({
 const createUser = async (obj) => {
   const { name, email, password } = obj;
   const error = schema.validateEmail(email);
-  if (error.type) throw new Error(error.message);
+  if (error) throw new Error(error.message);
 
   const passwordError = schema.validatePassword(password);
-  if (passwordError.type) throw new Error(passwordError.message);
+  if (passwordError) throw new Error(passwordError.message);
   
   const nameError = schema.validateName(name);
-  if (nameError.type) throw new Error(nameError.message);
+  if (nameError) throw new Error(nameError.message);
 
   const user = await getByEmail(email);
   if (user) {

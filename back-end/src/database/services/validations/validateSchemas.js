@@ -2,6 +2,7 @@ const {
   emailSchema,
   passwordSchema,
   nameSchema,
+  saleObjSchema,
 } = require('./schema');
 
 const validateEmail = (email) => {
@@ -26,8 +27,16 @@ const validateName = (name) => {
     throw new Error('Name must have at least 12 characters');
   }
 };
+
+const validateSale = (sale) => {
+  const { error } = saleObjSchema.validate(sale);
+  if (error) throw new Error('Incorrect values in sale received');
+  return false;
+};
+
 module.exports = {
   validateEmail,
   validatePassword,
   validateName,
+  validateSale,
 };
