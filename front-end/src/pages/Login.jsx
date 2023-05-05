@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-// import { Navigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import verifyLogin from '../utils/validateLogin';
+// import { Redirect, } from 'react-router-dom';
 // import Header from '../components/Header';
 // import { requestLogin, setToken, requestData } from '../services/requests';
 // import { positiveLogo } from '../images';
@@ -7,34 +8,39 @@ import React, { useState } from 'react';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  //   const [isLogged, setIsLogged] = useState(false);
+  const [isDisable, setIsDisable] = useState(true);
+  // const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin] = useState(false);
 
-  //   const login = async (event) => {
-  //     event.preventDefault();
+  const login = async (event) => {
+    event.preventDefault();
 
-  //     try {
-  //       const { token } = await requestLogin('/login', { email, password });
+    try {
+      // const { token } = await requestLogin('/login', { email, password });
 
-  //       setToken(token);
+      // setToken(token);
 
-  //       const { role } = await requestData('/login/role', { email, password });
+      // const { role } = await requestData('/login/role', { email, password });
 
-  //       localStorage.setItem('token',  token);
-  //       localStorage.setItem('role',  role);
+      // localStorage.setItem('token', token);
+      // localStorage.setItem('role', role);
 
-  //       setIsLogged(true);
-  //     } catch (error) {
-  //       setFailedTryLogin(true);
-  //       setIsLogged(false);
-  //     }
-  //   };
+      setIsLogged(true);
+    } catch (error) {
+      setFailedTryLogin(true);
+      setIsLogged(false);
+    }
+  };
 
-  //   useEffect(() => {
-  //     setFailedTryLogin(false);
-  //   }, [email, password]);
+  useEffect(() => {
+    if (verifyLogin(email, password)) {
+      setIsDisable(false);
+    } else {
+      setIsDisable(true);
+    }
+  }, [email, password, isDisable]);
 
-  //   if (isLogged) return <Navigate to="/matches" />;
+  // if (isLogged) return <Redire to="/matches" />;
 
   return (
     <>
@@ -64,6 +70,7 @@ function Login() {
           data-testid="common_login__button-login"
           type="submit"
           onClick={ (event) => login(event) }
+          disabled={ isDisable }
         >
           Login
         </button>
