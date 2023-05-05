@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import { Navigate } from 'react-router-dom';
 // import Header from '../components/Header';
 // import { requestLogin, setToken, requestData } from '../services/requests';
 // import { positiveLogo } from '../images';
 
 function Login() {
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [isLogged, setIsLogged] = useState(false);
-//   const [failedTryLogin, setFailedTryLogin] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  //   const [isLogged, setIsLogged] = useState(false);
+  const [failedTryLogin] = useState(false);
 
   //   const login = async (event) => {
   //     event.preventDefault();
@@ -37,7 +37,58 @@ function Login() {
   //   if (isLogged) return <Navigate to="/matches" />;
 
   return (
-    <p>oi</p>
+    <>
+      <p>oi</p>
+      <form>
+        <label htmlFor="email-input">
+          <input
+            className="common_login__input-email"
+            type="text"
+            value={ email }
+            onChange={ ({ target: { value } }) => setEmail(value) }
+            data-testid="common_login__input-email"
+            placeholder="Login"
+          />
+        </label>
+        <label htmlFor="password-input">
+          <input
+            type="password"
+            value={ password }
+            onChange={ ({ target: { value } }) => setPassword(value) }
+            data-testid="common_login__input-password"
+            placeholder="Senha"
+          />
+        </label>
+
+        <button
+          data-testid="common_login__button-login"
+          type="submit"
+          onClick={ (event) => login(event) }
+        >
+          Login
+        </button>
+
+        <button
+          data-testid="common_login__button-register"
+          type="submit"
+          onClick={ (event) => login(event) }
+        >
+          Registrar
+        </button>
+      </form>
+      {
+        (failedTryLogin)
+          ? (
+            <p data-testid="common_login__element-invalid-email">
+              {
+                `O endereço de e-mail ou a senha não estão corretos.
+                    Por favor, tente novamente.`
+              }
+            </p>
+          )
+          : null
+      }
+    </>
   );
 }
 
