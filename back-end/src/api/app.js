@@ -13,6 +13,7 @@ app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.get('/users', UserController.getAll);
 app.post('/users', UserController.createUser);
+app.post('/login', UserController.login);
 
 app.get('/sales', SaleController.getAll);
 app.post('/sales', SaleController.createSale);

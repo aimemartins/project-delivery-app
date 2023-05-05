@@ -1,6 +1,5 @@
 const UserService = require('../services/userService');
-// const generateToken = require('../utils/generateToken');
-// const login = require('./login');
+const tokenUtils = require('../utils/generateToken');
 
 const getAll = async (_req, res, next) => {
   try {
@@ -16,7 +15,6 @@ const createUser = async (req, res, next) => {
     const userObj = req.body;
     const newUser = await UserService.createUser(userObj);
 
-    // const myToken = generateToken(userObj.email, userObj.password);
     return res.status(201).json({ newUser });
   } catch (e) {
     console.log(e.message);
@@ -24,7 +22,21 @@ const createUser = async (req, res, next) => {
   }
 };
 
+const login = async (req, res, next) => {
+  const { email, password } = req.body;
+  try {
+    const user = await UserService.login(email, password);
+    
+    const token = tokenUtils.generateToken({ email, password });
+    return res.status(200).json({ token, ...user });
+  } catch (e) {
+    next(e);
+  }
+};
+// teste new PR
+
 module.exports = {
   getAll,
   createUser,
+  login,
 };

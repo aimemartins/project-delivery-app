@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import verifyLogin from '../utils/validateLogin';
 // import { Redirect, } from 'react-router-dom';
 // import Header from '../components/Header';
-// import { requestLogin, setToken, requestData } from '../services/requests';
+import { requestLogin, setToken, requestData } from '../services/requests';
 // import { positiveLogo } from '../images';
 
 function Login() {
@@ -44,7 +44,6 @@ function Login() {
 
   return (
     <>
-      <p>oi</p>
       <form>
         <label htmlFor="email-input">
           <input
