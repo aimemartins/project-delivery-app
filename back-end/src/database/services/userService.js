@@ -3,7 +3,6 @@ const schema = require('./validations/validateSchemas');
 
 const getByEmail = (email) => User.findOne({
   where: { email },
-  attributes: { exclude: ['password'] },
 });
 
 const getAll = () => User.findAll({
@@ -34,4 +33,5 @@ const createUser = async (obj) => {
 module.exports = {
   getAll,
   createUser,
+  getByEmail,
 };
