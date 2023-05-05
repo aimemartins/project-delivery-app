@@ -33,6 +33,7 @@ const login = async (req, res, next) => {
     next(e);
   }
 };
+// teste
 
 module.exports = {
   getAll,
