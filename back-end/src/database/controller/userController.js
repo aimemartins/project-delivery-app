@@ -1,5 +1,4 @@
 const UserService = require('../services/userService');
-const md5 = require('../../../../__tests__/config/utils/md5');
 const tokenUtils = require('../utils/generateToken');
 
 const getAll = async (_req, res, next) => {
@@ -26,14 +25,10 @@ const createUser = async (req, res, next) => {
 const login = async (req, res, next) => {
   const { email, password } = req.body;
   try {
-    const { dataValues } = await UserService.getByEmail(email);
-    if (!dataValues) throw new Error('Invalid email or password');
-    const passwordMd5 = md5(password);
-    const isValid = passwordMd5 === dataValues.password;
-    if (dataValues.email !== email || !isValid) throw new Error('Invalid email or password');
+    const user = await UserService.login(email, password);
     
     const token = tokenUtils.generateToken({ email, password });
-    return res.status(200).json({ token, ...dataValues });
+    return res.status(200).json({ token, ...user });
   } catch (e) {
     next(e);
   }
