@@ -1,31 +1,32 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect, useHistory } from 'react-router-dom';
 import verifyLogin from '../utils/validateLogin';
-// import { Redirect, } from 'react-router-dom';
 // import Header from '../components/Header';
-import { requestLogin, setToken, requestData } from '../services/requests';
+import { requestLogin, setToken } from '../services/requests';
 // import { positiveLogo } from '../images';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [user, setUser] = useState({});
+  const [isLogged, setIsLogged] = useState(false);
+  const [failedTryLogin, setFailedTryLogin] = useState(false);
   const [isDisable, setIsDisable] = useState(true);
-  // const [isLogged, setIsLogged] = useState(false);
-  const [failedTryLogin] = useState(false);
+  const history = useHistory();
 
   const login = async (event) => {
     event.preventDefault();
 
     try {
-      // const { token } = await requestLogin('/login', { email, password });
+      const data = await requestLogin('/login', { email, password });
 
-      // setToken(token);
-
-      // const { role } = await requestData('/login/role', { email, password });
-
+      setToken(data.token);
+      console.log(data);
       // localStorage.setItem('token', token);
-      // localStorage.setItem('role', role);
-
+      // localStorage.setItem('user', data);
       setIsLogged(true);
+      setUser(data);
+      redirect();
     } catch (error) {
       setFailedTryLogin(true);
       setIsLogged(false);
@@ -40,7 +41,17 @@ function Login() {
     }
   }, [email, password, isDisable]);
 
-  // if (isLogged) return <Redire to="/matches" />;
+  useEffect(() => {
+    if (isLogged) {
+      switch (user.role) {
+      case 'seller':
+        return history.push('/seller');
+      case 'administrator':
+        return history.push('/administrator');
+      default: history.push('/customer/products');
+      }
+    }
+  }, [isLogged, user, history]);
 
   return (
     <>
@@ -77,7 +88,7 @@ function Login() {
         <button
           data-testid="common_login__button-register"
           type="submit"
-          onClick={ (event) => login(event) }
+          onClick={ <Redirect to="/customer" /> }
         >
           Registrar
         </button>
