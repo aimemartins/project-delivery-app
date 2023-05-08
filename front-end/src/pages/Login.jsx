@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+import verifyLogin from '../utils/validateLogin';
 // import Header from '../components/Header';
 import { requestLogin, setToken } from '../services/requests';
 // import { positiveLogo } from '../images';
@@ -10,6 +11,7 @@ function Login() {
   const [user, setUser] = useState({});
   const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
+  const [isDisable, setIsDisable] = useState(true);
 
   const login = async (event) => {
     event.preventDefault();
@@ -21,7 +23,6 @@ function Login() {
 
       // localStorage.setItem('token', token);
       // localStorage.setItem('user', data);
-
       setIsLogged(true);
       setUser(data);
     } catch (error) {
@@ -31,8 +32,12 @@ function Login() {
   };
 
   useEffect(() => {
-    setFailedTryLogin(false);
-  }, [email, password]);
+    if (verifyLogin(email, password)) {
+      setIsDisable(false);
+    } else {
+      setIsDisable(true);
+    }
+  }, [email, password, isDisable]);
 
   if (isLogged) {
     switch (user.role) {
@@ -71,6 +76,7 @@ function Login() {
           data-testid="common_login__button-login"
           type="submit"
           onClick={ (event) => login(event) }
+          disabled={ isDisable }
         >
           Login
         </button>
