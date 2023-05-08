@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import verifyLogin from '../utils/validateLogin';
 // import Header from '../components/Header';
-import { requestLogin, setToken } from '../services/requests';
+import { requestLogin, setToken, requestData } from '../services/requests';
 // import { positiveLogo } from '../images';
 
 function Login() {
@@ -12,19 +12,21 @@ function Login() {
   const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const [isDisable, setIsDisable] = useState(true);
+  const history = useHistory();
 
   const login = async (event) => {
     event.preventDefault();
 
     try {
       const data = await requestLogin('/login', { email, password });
-
+      // const data = await requestData('/users');
       setToken(data.token);
-
+      console.log(data);
       // localStorage.setItem('token', token);
       // localStorage.setItem('user', data);
       setIsLogged(true);
       setUser(data);
+      redirect();
     } catch (error) {
       setFailedTryLogin(true);
       setIsLogged(false);
@@ -39,15 +41,17 @@ function Login() {
     }
   }, [email, password, isDisable]);
 
-  if (isLogged) {
-    switch (user.role) {
-    case 'seller':
-      return <Redirect to="/seller" />;
-    case 'administrator':
-      return <Redirect to="/administrator" />;
-    default: <Redirect to="/customer" />;
+  useEffect(() => {
+    if (isLogged) {
+      switch (user.role) {
+      case 'seller':
+        return history.push('/seller');
+      case 'administrator':
+        return history.push('/administrator');
+      default: history.push('/customer/products');
+      }
     }
-  }
+  }, [isLogged]);
 
   return (
     <>
