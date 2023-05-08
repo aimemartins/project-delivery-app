@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 // import Header from '../components/Header';
-import { requestLogin, setToken, requestData } from '../services/requests';
+import { requestLogin, setToken } from '../services/requests';
 // import { positiveLogo } from '../images';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [user, setUser] = useState({});
   const [isLogged, setIsLogged] = useState(false);
-  const [failedTryLogin] = useState(false);
+  const [failedTryLogin, setFailedTryLogin] = useState(false);
 
   const login = async (event) => {
     event.preventDefault();
 
     try {
-      const { token } = await requestLogin('/login', { email, password });
+      const data = await requestLogin('/login', { email, password });
 
-      setToken(token);
+      setToken(data.token);
 
-      const { role } = await requestData('/login/role', { email, password });
-
-      localStorage.setItem('token', token);
-      localStorage.setItem('role', role);
+      // localStorage.setItem('token', token);
+      // localStorage.setItem('user', data);
 
       setIsLogged(true);
+      setUser(data);
     } catch (error) {
       setFailedTryLogin(true);
       setIsLogged(false);
@@ -34,7 +34,15 @@ function Login() {
     setFailedTryLogin(false);
   }, [email, password]);
 
-  if (isLogged) return <Redirect to="/app" />;
+  if (isLogged) {
+    switch (user.role) {
+    case 'seller':
+      return <Redirect to="/seller" />;
+    case 'administrator':
+      return <Redirect to="/administrator" />;
+    default: <Redirect to="/customer" />;
+    }
+  }
 
   return (
     <>
@@ -70,7 +78,7 @@ function Login() {
         <button
           data-testid="common_login__button-register"
           type="submit"
-          onClick={ (event) => login(event) }
+          onClick={ <Redirect to="/customer" /> }
         >
           Registrar
         </button>
