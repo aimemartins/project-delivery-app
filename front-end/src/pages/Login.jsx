@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import verifyLogin from '../utils/validateLogin';
 // import Header from '../components/Header';
-import { requestLogin, setToken, requestData } from '../services/requests';
+import { requestLogin, setToken } from '../services/requests';
 // import { positiveLogo } from '../images';
 
 function Login() {
@@ -19,7 +19,7 @@ function Login() {
 
     try {
       const data = await requestLogin('/login', { email, password });
-      // const data = await requestData('/users');
+
       setToken(data.token);
       console.log(data);
       // localStorage.setItem('token', token);
@@ -51,7 +51,7 @@ function Login() {
       default: history.push('/customer/products');
       }
     }
-  }, [isLogged]);
+  }, [isLogged, user, history]);
 
   return (
     <>
