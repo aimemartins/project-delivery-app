@@ -3,6 +3,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import verifyLogin from '../utils/validateLogin';
 // import Header from '../components/Header';
 import { requestLogin, setToken } from '../services/requests';
+import Header from '../components/Header';
 // import { positiveLogo } from '../images';
 
 function Login() {
@@ -22,8 +23,8 @@ function Login() {
 
       setToken(data.token);
       console.log(data);
-      // localStorage.setItem('token', token);
-      // localStorage.setItem('user', data);
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', data.name);
       setIsLogged(true);
       setUser(data);
       redirect();
@@ -55,11 +56,13 @@ function Login() {
 
   return (
     <>
+      <Header />
       <form>
         <label htmlFor="email-input">
           <input
             className="common_login__input-email"
-            type="text"
+            type="email"
+            id="email"
             value={ email }
             onChange={ ({ target: { value } }) => setEmail(value) }
             data-testid="common_login__input-email"
