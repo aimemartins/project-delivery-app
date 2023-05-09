@@ -20,11 +20,11 @@ const createUser = async (req, res, next) => {
       password: passwordMd5,
       role: 'customer',
     };
-    console.log(userObj);
+    const userExists = await UserService.getByEmail(req.body.email);
+    if (userExists) throw new Error('User already exists');
+
     await UserService.createUser(userObj);
-    console.log('oie2');
     const userCreated = await UserService.getByEmail(req.body.email);
-    console.log('oie3');
     return res.status(201).json({ userCreated });
   } catch (e) {
     console.log(e.message);

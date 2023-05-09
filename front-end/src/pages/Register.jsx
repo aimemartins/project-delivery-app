@@ -7,6 +7,7 @@ export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [user, setUser] = useState({});
   const [failedRegister, setFailedRegister] = useState(false);
   const [isDisabled, setIsDisable] = useState(true);
   const numberTwelve = 12;
@@ -16,16 +17,20 @@ export default function Register() {
     event.preventDefault();
 
     try {
-      console.log({ email, password, name });
-      const data = await requestLogin('/users', { email, password, name });
+      await requestLogin('/users', { email, password, name });
 
-      setToken(data.token);
+      const data = await requestLogin('/login', { email, password });
+      console.log(data);
+
+      setUser(data);
+      setToken(user.token);
       // localStorage.setItem('token', token);
       // localStorage.setItem('user', data);
-      setUser(data);
       history.push('/customer/products');
     } catch (error) {
+      console.log(error.message);
       setFailedRegister(true);
+      setIsDisable(true);
     }
   };
 
@@ -83,9 +88,9 @@ export default function Register() {
       {
         (failedRegister)
           ? (
-            <p data-testid="common_login__element-invalid-email">
+            <p data-testid="common_register__element-invalid_register">
               {
-                `O endereço de e-mail ou a senha não estão corretos.
+                `Os dados do usuário que informou não estão corretos.
                   Por favor, tente novamente.`
               }
             </p>
