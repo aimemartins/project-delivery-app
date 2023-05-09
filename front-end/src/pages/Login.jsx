@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import verifyLogin from '../utils/validateLogin';
 // import Header from '../components/Header';
 import { requestLogin, setToken } from '../services/requests';
@@ -26,7 +26,6 @@ function Login() {
       // localStorage.setItem('user', data);
       setIsLogged(true);
       setUser(data);
-      redirect();
     } catch (error) {
       setFailedTryLogin(true);
       setIsLogged(false);
@@ -87,8 +86,8 @@ function Login() {
 
         <button
           data-testid="common_login__button-register"
-          type="submit"
-          onClick={ <Redirect to="/customer" /> }
+          type="button"
+          onClick={ () => history.push('/register') }
         >
           Registrar
         </button>
