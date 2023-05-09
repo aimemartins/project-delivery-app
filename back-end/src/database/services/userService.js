@@ -14,7 +14,6 @@ const createUser = async (obj) => {
   const { name, email, password } = obj;
   const error = schema.validateEmail(email);
   if (error) throw new Error(error.message);
-
   const passwordError = schema.validatePassword(password);
   if (passwordError) throw new Error(passwordError.message);
   

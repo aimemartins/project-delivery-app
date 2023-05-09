@@ -1,5 +1,6 @@
 const UserService = require('../services/userService');
 const tokenUtils = require('../utils/generateToken');
+const md5 = require('../../../../__tests__/config/utils/md5');
 
 const getAll = async (_req, res, next) => {
   try {
@@ -12,10 +13,19 @@ const getAll = async (_req, res, next) => {
 
 const createUser = async (req, res, next) => {
   try {
-    const userObj = req.body;
-    const newUser = await UserService.createUser(userObj);
-
-    return res.status(201).json({ newUser });
+    const passwordMd5 = md5(req.body.password);
+    const userObj = {
+      name: req.body.name,
+      email: req.body.email,
+      password: passwordMd5,
+      role: 'customer',
+    };
+    console.log(userObj);
+    await UserService.createUser(userObj);
+    console.log('oie2');
+    const userCreated = await UserService.getByEmail(req.body.email);
+    console.log('oie3');
+    return res.status(201).json({ userCreated });
   } catch (e) {
     console.log(e.message);
     next(e);

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import verifyLogin from '../utils/validateLogin';
 // import Header from '../components/Header';
 import { requestLogin, setToken } from '../services/requests';
+import Header from '../components/Header';
 // import { positiveLogo } from '../images';
 
 function Login() {
@@ -22,11 +23,10 @@ function Login() {
 
       setToken(data.token);
       console.log(data);
-      // localStorage.setItem('token', token);
-      // localStorage.setItem('user', data);
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', data.name);
       setIsLogged(true);
       setUser(data);
-      redirect();
     } catch (error) {
       setFailedTryLogin(true);
       setIsLogged(false);
@@ -55,11 +55,13 @@ function Login() {
 
   return (
     <>
+      <Header />
       <form>
         <label htmlFor="email-input">
           <input
             className="common_login__input-email"
-            type="text"
+            type="email"
+            id="email"
             value={ email }
             onChange={ ({ target: { value } }) => setEmail(value) }
             data-testid="common_login__input-email"
@@ -87,8 +89,8 @@ function Login() {
 
         <button
           data-testid="common_login__button-register"
-          type="submit"
-          onClick={ <Redirect to="/customer" /> }
+          type="button"
+          onClick={ () => history.push('/register') }
         >
           Registrar
         </button>
