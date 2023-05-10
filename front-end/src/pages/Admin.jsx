@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import UserList from '../components/UserList';
+import { requestLogin, requestData } from '../services/requests';
+import verifyLogin from '../utils/validateLogin';
 
 export default function Admin() {
   const [email, setEmail] = useState('');
@@ -10,23 +12,49 @@ export default function Admin() {
   const [failedRegister, setFailedRegister] = useState(false);
   const [isDisabled, setIsDisable] = useState(true);
   const [role, setRole] = useState('customer');
-  // const history = useHistory();
+  const [users, setUsers] = useState([]);
+  // const {
+  //   users,
+  // } = useContext(AppContext);
+  const numberTwelve = 12;
+
+  const getUsers = async () => {
+    try {
+      const newUsers = await requestData('/users');
+      setUsers(newUsers);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 
   const register = async (event) => {
     event.preventDefault();
 
     try {
-      await requestLogin('/users', { email, password, name });
+      await requestLogin('/users', { email, password, name, role });
       setEmail('');
       setPassword('');
       setName('');
       setIsDisable(true);
+      getUsers();
     } catch (error) {
       console.log(error.message);
       setFailedRegister(true);
       setIsDisable(true);
     }
   };
+
+  useEffect(() => {
+    if (verifyLogin(email, password) && name.length >= numberTwelve) {
+      setIsDisable(false);
+    } else {
+      setIsDisable(true);
+    }
+  }, [email, password, name]);
+
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   return (
     <>
@@ -98,7 +126,25 @@ export default function Admin() {
         </form>
       </section>
       <section>
-        <UserList />
+        <h2>Lista de usuários</h2>
+        <br />
+        <h3>Item</h3>
+        <h3>Nome</h3>
+        <h3>E-mail</h3>
+        <h3>Tipo</h3>
+        <h3>Excluir</h3>
+        {
+          (!users) ? ''
+            : users.map((user) => (
+              <UserList
+                key={ user.id }
+                id={ user.id }
+                name={ user.name }
+                email={ user.email }
+                role={ user.role }
+              />
+            ))
+        }
       </section>
     </>
   );

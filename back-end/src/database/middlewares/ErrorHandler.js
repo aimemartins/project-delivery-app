@@ -1,6 +1,5 @@
 class ErrorHandler {
   static handle(error, _req, res, next) {
-    console.log('asoifhasifhaoshdfoashofihasofidhsaoifhasoihfdsaoihfasfafafas');
     switch (error.message) {
       case 'User already exists':
         return res.status(409).json({ message: error.message });

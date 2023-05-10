@@ -22,11 +22,10 @@ function Login() {
       const data = await requestLogin('/login', { email, password });
 
       setToken(data.token);
-      console.log(data);
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', data.name);
-      setIsLogged(true);
       setUser(data);
+      setIsLogged(true);
     } catch (error) {
       setFailedTryLogin(true);
       setIsLogged(false);
@@ -47,8 +46,9 @@ function Login() {
       case 'seller':
         return history.push('/seller');
       case 'administrator':
-        return history.push('/administrator');
+        return history.push('/admin/manage');
       default: history.push('/customer/products');
+        break;
       }
     }
   }, [isLogged, user, history]);
