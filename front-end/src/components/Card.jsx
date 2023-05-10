@@ -3,6 +3,7 @@ import { requestData } from '../services/requests';
 
 function Card() {
   const [card, setCard] = useState([]);
+  const [quantity, setQuantity] = useState(0);
 
   const products = async () => {
     try {
@@ -13,19 +14,35 @@ function Card() {
     }
   };
 
+  const increment = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const decrement = () => {
+    setQuantity(quantity - 1);
+  };
+
+  console.log(quantity);
+
   useEffect(() => {
     products();
   }, []);
 
   return (
-    <div>
-      <span>
-        {card.map((p) => <h3 key={ p.id }>{ p.price }</h3>)}
-      </span>
-      <span>
-        {card.map((n) => <p key={ n.id }>{n.name}</p>)}
-      </span>
-    </div>
+    <section>
+      <div>
+        <p>{ price }</p>
+        <img src={ url_image } alt={ name } width="100" height="100" />
+        <h2>{ p.name }</h2>
+        <button type="submit" onClick={ decrement }>-</button>
+        <input
+          type="number"
+          value={ quantity }
+          onChange={ (e) => setQuantity(e.target.value) }
+        />
+        <button type="submit" onClick={ increment }>+</button>
+      </div>
+    </section>
   );
 }
 
