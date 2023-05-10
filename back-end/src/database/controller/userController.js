@@ -1,5 +1,6 @@
 const UserService = require('../services/userService');
 const tokenUtils = require('../utils/generateToken');
+const md5 = require('../../../../__tests__/config/utils/md5');
 
 const getAll = async (_req, res, next) => {
   try {
@@ -12,10 +13,19 @@ const getAll = async (_req, res, next) => {
 
 const createUser = async (req, res, next) => {
   try {
-    const userObj = req.body;
-    const newUser = await UserService.createUser(userObj);
+    const passwordMd5 = md5(req.body.password);
+    const userObj = {
+      name: req.body.name,
+      email: req.body.email,
+      password: passwordMd5,
+      role: req.body.role || 'customer',
+    };
+    const userExists = await UserService.getByEmail(req.body.email);
+    if (userExists) throw new Error('User already exists');
 
-    return res.status(201).json({ newUser });
+    await UserService.createUser(userObj);
+    const userCreated = await UserService.getByEmail(req.body.email);
+    return res.status(201).json({ userCreated });
   } catch (e) {
     console.log(e.message);
     next(e);
@@ -33,10 +43,20 @@ const login = async (req, res, next) => {
     next(e);
   }
 };
-// teste new PR
+
+const deleteUser = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    await UserService.deleteUser(Number(id));
+    return res.status(200).json({ message: 'User deleted' });
+  } catch (e) {
+    next(e);
+  }
+};
 
 module.exports = {
   getAll,
   createUser,
   login,
+  deleteUser,
 };
