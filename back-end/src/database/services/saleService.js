@@ -3,6 +3,10 @@ const schema = require('./validations/validateSchemas');
 
 const getAll = () => Sale.findAll();
 
+const getAllById = async (id) => {
+  Sale.findAll({ where: { id } });
+};
+
 const getSaleById = (id) => Sale.findOne({
   where: { id },
   include: [{
@@ -31,4 +35,5 @@ module.exports = {
   updateSaleStatus,
   deleteSale,
   getSaleById,
+  getAllById,
 };

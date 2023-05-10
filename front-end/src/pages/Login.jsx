@@ -51,7 +51,7 @@ function Login() {
             className="common_login__input-email"
             type="text"
             value={ email }
-            onChange={ ({ target: { value } }) => setEmail(value) }
+            onChange={ ({ target: { value } })  => setEmail(value) }
             data-testid="common_login__input-email"
             placeholder="Login"
           />

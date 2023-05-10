@@ -33,7 +33,20 @@ const updateSale = async (req, res, next) => {
     next(e);
   }
 };
+
+const getAllById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await SaleService.getAllById(id);
+    return res.status(200).json(result);
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+};
+
 module.exports = {
+  getAllById,
   getAll,
   createSale,
   updateSale,
