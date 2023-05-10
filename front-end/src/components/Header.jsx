@@ -8,6 +8,8 @@ function Header() {
   const history = useHistory();
   const path = history.location.pathname;
 
+  const objUser = JSON.parse(username);
+
   const customerProducts = () => {
     if (path.includes('customer')) {
       return (
@@ -75,7 +77,7 @@ function Header() {
         <p
           data-testid="customer_products__element-navbar-user-full-name"
         >
-          {username}
+          {objUser.name}
 
         </p>
       </div>
