@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+// import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
+import UserList from '../components/UserList';
 
 export default function Admin() {
   const [email, setEmail] = useState('');
@@ -7,6 +9,24 @@ export default function Admin() {
   const [name, setName] = useState('');
   const [failedRegister, setFailedRegister] = useState(false);
   const [isDisabled, setIsDisable] = useState(true);
+  const [role, setRole] = useState('customer');
+  // const history = useHistory();
+
+  const register = async (event) => {
+    event.preventDefault();
+
+    try {
+      await requestLogin('/users', { email, password, name });
+      setEmail('');
+      setPassword('');
+      setName('');
+      setIsDisable(true);
+    } catch (error) {
+      console.log(error.message);
+      setFailedRegister(true);
+      setIsDisable(true);
+    }
+  };
 
   return (
     <>
@@ -57,7 +77,12 @@ export default function Admin() {
               placeholder="*******"
             />
           </label>
-          <select name="user_role" data-testid="admin_manage__select-role">
+          <select
+            name="user_role"
+            data-testid="admin_manage__select-role"
+            value={ role }
+            onChange={ ({ target: { value } }) => setRole(value) }
+          >
             <option value="administrator">Admin</option>
             <option value="seller">Vendedor</option>
             <option value="customer">Cliente</option>
@@ -72,7 +97,9 @@ export default function Admin() {
           </button>
         </form>
       </section>
-      <p> teste</p>
+      <section>
+        <UserList />
+      </section>
     </>
   );
 }
