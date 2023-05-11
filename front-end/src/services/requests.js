@@ -18,4 +18,8 @@ export const requestLogin = async (endpoint, body) => {
   return data;
 };
 
+export const requestDeleteUser = async (endpoint) => {
+  const { data } = await api.delete(endpoint);
+  return data;
+};
 export default api;

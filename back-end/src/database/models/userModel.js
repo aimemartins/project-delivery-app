@@ -9,7 +9,10 @@ const UserModel = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
-    role: DataTypes.STRING,
+    role: {
+      type: DataTypes.STRING,
+      defaultValue: 'customer',
+    },
   }, {
     timestamps: false,
     underscored: true,
@@ -19,12 +22,12 @@ const UserModel = (sequelize, DataTypes) => {
   User.associate = (models) => {
     User.hasMany(models.Sale, {
       foreignKey: 'userId',
-      as: 'user'
+      as: 'user',
     });
 
     User.hasMany(models.Sale, {
       foreignKey: 'sellerId',
-      as: 'seller'
+      as: 'seller',
     });
   };
 

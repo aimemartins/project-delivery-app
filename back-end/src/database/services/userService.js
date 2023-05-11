@@ -1,9 +1,9 @@
 const { User } = require('../models');
 const schema = require('./validations/validateSchemas');
+const md5 = require('../../../../__tests__/config/utils/md5');
 
 const getByEmail = (email) => User.findOne({
   where: { email },
-  attributes: { exclude: ['password'] },
 });
 
 const getAll = () => User.findAll({
@@ -14,7 +14,6 @@ const createUser = async (obj) => {
   const { name, email, password } = obj;
   const error = schema.validateEmail(email);
   if (error) throw new Error(error.message);
-
   const passwordError = schema.validatePassword(password);
   if (passwordError) throw new Error(passwordError.message);
   
@@ -31,7 +30,28 @@ const createUser = async (obj) => {
   return newUser;
 };
 
+const login = async (email, password) => {
+  const error = schema.validateEmail(email);
+  if (error) throw new Error(error.message);
+
+  const { dataValues } = await getByEmail(email);
+  if (!dataValues) throw new Error('Invalid email or password');
+
+  const passwordMd5 = md5(password);
+  const isValid = passwordMd5 === dataValues.password;
+  if (!isValid) throw new Error('Invalid email or password');
+
+  return dataValues;
+};
+
+const deleteUser = (id) => User.destroy({
+  where: { id },
+});
+
 module.exports = {
   getAll,
   createUser,
+  getByEmail,
+  login,
+  deleteUser,
 };
