@@ -30,6 +30,7 @@ app.post('/sales', SaleController.createSale);
 app.put('/sales/:id', SaleController.updateSale);
 
 app.get('/products', ProductController.getAll);
+app.get('/products/:id', ProductController.getById);
 
 app.get('/sales/products', SaleProductController.getAll);
 app.post('/sales/products', SaleProductController.createSaleProduct);
