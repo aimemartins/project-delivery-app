@@ -10,6 +10,7 @@ function Card({ card }) {
   };
 
   const decrement = () => {
+    if (card.quantity === 0) return 0;
     setProductQuant(productQuant - 1);
     card.quantity -= 1;
   };
@@ -20,7 +21,7 @@ function Card({ card }) {
         <p
           data-testid={ `customer_products__element-card-price-${card.id}` }
         >
-          { card.price }
+          { card.price.replace('.', ',') }
 
         </p>
         <img
@@ -42,7 +43,6 @@ function Card({ card }) {
           onClick={ decrement }
         >
           -
-
         </button>
         <input
           data-testid={ `customer_products__input-card-quantity-${card.id}` }
@@ -56,7 +56,6 @@ function Card({ card }) {
           onClick={ increment }
         >
           +
-
         </button>
       </div>
     </section>

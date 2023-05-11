@@ -17,6 +17,8 @@ function CustumerProducts() {
 
   useEffect(() => getProducts(), []);
 
+  localStorage.setItem('cart', JSON.stringify(products));
+
   return (
     <div>
       <Header />
