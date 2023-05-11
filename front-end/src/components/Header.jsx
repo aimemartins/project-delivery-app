@@ -3,10 +3,12 @@ import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 function Header() {
-  const [username] = useState((localStorage.getItem('user')));
+  const [username] = useState(localStorage.getItem('user'));
   const [setIsLogged] = useState(false);
   const history = useHistory();
   const path = history.location.pathname;
+
+  const objUser = JSON.parse(username);
 
   const customerProducts = () => {
     if (path.includes('customer')) {
@@ -75,8 +77,7 @@ function Header() {
         <p
           data-testid="customer_products__element-navbar-user-full-name"
         >
-          {username.name}
-
+          {objUser.name}
         </p>
       </div>
       <div>

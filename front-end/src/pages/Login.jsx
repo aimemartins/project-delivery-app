@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import verifyLogin from '../utils/validateLogin';
-// import Header from '../components/Header';
 import { requestLogin, setToken } from '../services/requests';
-import Header from '../components/Header';
 // import { positiveLogo } from '../images';
 
 function Login() {
@@ -22,8 +20,7 @@ function Login() {
       const data = await requestLogin('/login', { email, password });
 
       setToken(data.token);
-      // localStorage.setItem('token', data.token);
-      localStorage.setItem('user', data);
+      localStorage.setItem('user', JSON.stringify(data));
       setUser(data);
       setIsLogged(true);
     } catch (error) {
@@ -55,7 +52,6 @@ function Login() {
 
   return (
     <>
-      {/* <Header /> */}
       <form>
         <label htmlFor="email-input">
           <input
