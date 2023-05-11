@@ -11,7 +11,9 @@ function Card({ card }) {
       id: card.id,
       quantity: card.quantity,
       name: card.name,
-      price: card.price };
+      price: card.price,
+      subTotal: card.quantity * card.price,
+    };
     newCart.push(newItem);
     localStorage.setItem('cart', JSON.stringify(newCart));
   };
