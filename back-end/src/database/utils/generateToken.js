@@ -1,8 +1,8 @@
 const Jwt = require('jsonwebtoken');
-const path = require('path');
+// const path = require('path');
 const fs = require('fs');
 
-const JWT_SECRET = path.resolve(__dirname, '../../../jwt.evaluation.key');
+const JWT_SECRET = 'jwt.evaluation.key';
 
 const secret = fs.readFileSync(JWT_SECRET, 'utf8');
 

@@ -22,8 +22,8 @@ function Login() {
       const data = await requestLogin('/login', { email, password });
 
       setToken(data.token);
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', data.name);
+      // localStorage.setItem('token', data.token);
+      localStorage.setItem('user', data);
       setUser(data);
       setIsLogged(true);
     } catch (error) {
@@ -55,7 +55,7 @@ function Login() {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <form>
         <label htmlFor="email-input">
           <input

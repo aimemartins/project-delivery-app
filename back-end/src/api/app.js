@@ -23,7 +23,8 @@ app.options('*', cors());
 app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.get('/users', verifyToken, UserController.getAll);
-app.post('/users', verifyToken, UserController.createUser);
+app.post('/users', UserController.createUser);
+app.post('/admin/user', verifyToken, UserController.createUser);
 app.delete('/users/:id', verifyToken, UserController.deleteUser);
 app.post('/login', UserController.login);
 

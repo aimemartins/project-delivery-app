@@ -31,7 +31,7 @@ export default function Admin() {
     event.preventDefault();
 
     try {
-      await requestLogin('/users', { email, password, name, role });
+      await requestLogin('/admin/user', { email, password, name, role });
       setEmail('');
       setPassword('');
       setName('');

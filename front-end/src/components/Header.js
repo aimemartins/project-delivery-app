@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 function Header() {
-  const [username] = useState(localStorage.getItem('user'));
+  const [username] = useState((localStorage.getItem('user')));
   const [setIsLogged] = useState(false);
   const history = useHistory();
   const path = history.location.pathname;
@@ -75,7 +75,7 @@ function Header() {
         <p
           data-testid="customer_products__element-navbar-user-full-name"
         >
-          {username}
+          {username.name}
 
         </p>
       </div>
