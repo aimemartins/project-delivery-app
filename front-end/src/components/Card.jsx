@@ -1,18 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 function Card({ card }) {
   const [productQuant, setProductQuant] = useState(card.quantity);
 
+  const setCart = () => {
+    const carrinho = JSON.parse(localStorage.getItem('cart'));
+    const newCart = carrinho.filter((e) => e.id !== card.id);
+    const newItem = {
+      id: card.id,
+      quantity: card.quantity,
+      name: card.name,
+      price: card.price };
+    newCart.push(newItem);
+    localStorage.setItem('cart', JSON.stringify(newCart));
+  };
+
   const increment = () => {
     setProductQuant(productQuant + 1);
     card.quantity += 1;
+    setCart();
   };
 
   const decrement = () => {
+    if (card.quantity === 0) return 0;
     setProductQuant(productQuant - 1);
     card.quantity -= 1;
+    setCart();
   };
+
+  useEffect(() => localStorage.setItem('cart', JSON.stringify([])), []);
 
   return (
     <section>
@@ -20,7 +37,7 @@ function Card({ card }) {
         <p
           data-testid={ `customer_products__element-card-price-${card.id}` }
         >
-          { card.price }
+          { card.price.replace('.', ',') }
 
         </p>
         <img
@@ -42,7 +59,6 @@ function Card({ card }) {
           onClick={ decrement }
         >
           -
-
         </button>
         <input
           data-testid={ `customer_products__input-card-quantity-${card.id}` }
@@ -56,7 +72,6 @@ function Card({ card }) {
           onClick={ increment }
         >
           +
-
         </button>
       </div>
     </section>
