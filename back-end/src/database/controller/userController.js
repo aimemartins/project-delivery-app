@@ -18,13 +18,13 @@ const createUser = async (req, res, next) => {
       name: req.body.name,
       email: req.body.email,
       password: passwordMd5,
-      role: 'customer',
+      role: req.body.role || 'customer',
     };
-    console.log(userObj);
+    const userExists = await UserService.getByEmail(req.body.email);
+    if (userExists) throw new Error('User already exists');
+
     await UserService.createUser(userObj);
-    console.log('oie2');
     const userCreated = await UserService.getByEmail(req.body.email);
-    console.log('oie3');
     return res.status(201).json({ userCreated });
   } catch (e) {
     console.log(e.message);
@@ -43,10 +43,20 @@ const login = async (req, res, next) => {
     next(e);
   }
 };
-// teste new PR
+
+const deleteUser = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    await UserService.deleteUser(Number(id));
+    return res.status(200).json({ message: 'User deleted' });
+  } catch (e) {
+    next(e);
+  }
+};
 
 module.exports = {
   getAll,
   createUser,
   login,
+  deleteUser,
 };

@@ -44,9 +44,14 @@ const login = async (email, password) => {
   return dataValues;
 };
 
+const deleteUser = (id) => User.destroy({
+  where: { id },
+});
+
 module.exports = {
   getAll,
   createUser,
   getByEmail,
   login,
+  deleteUser,
 };

@@ -20,9 +20,7 @@ function Login() {
       const data = await requestLogin('/login', { email, password });
 
       setToken(data.token);
-      console.log(data);
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', data.name);
+      localStorage.setItem('user', JSON.stringify(data));
       setIsLogged(true);
       setUser(data);
     } catch (error) {
