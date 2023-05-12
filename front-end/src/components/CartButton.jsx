@@ -31,16 +31,6 @@ function CartButton() {
       sumTotal();
     }));
   }, []);
-
-  // window.onstorage = () => {
-  //   sumTotal();
-  //   console.log('oi');
-  // };
-  // useEffect(() => {
-  // }, []);
-
-  // .replace('.', ',')
-  // console.log(typeof subTotal);
   return (
     <div>
       <button
