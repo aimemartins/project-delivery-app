@@ -66,7 +66,11 @@ function Card({ card }) {
           data-testid={ `customer_products__input-card-quantity-${card.id}` }
           type="number"
           value={ card.quantity }
-          onChange={ (e) => setProductQuant(e.target.value) }
+          onChange={ async (e) => {
+            setProductQuant(e.target.value);
+            card.quantity = Number(e.target.value);
+            await setCart();
+          } }
         />
         <button
           data-testid={ `customer_products__button-card-add-item-${card.id}` }

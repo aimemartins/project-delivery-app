@@ -6,6 +6,7 @@ import CartButton from '../components/CartButton';
 
 function CustumerProducts() {
   const [products, setProducts] = useState([]);
+  const [productsOn, setProductsOn] = useState(false);
 
   const getProducts = () => {
     requestData('/products').then((result) => {
@@ -13,6 +14,7 @@ function CustumerProducts() {
         ...product, quantity: 0,
       }));
       setProducts(productsData);
+      setProductsOn(true);
     });
   };
 
@@ -24,7 +26,7 @@ function CustumerProducts() {
     <div>
       <Header />
       { products.map((card) => <Card key={ card.id } card={ card } />) }
-      <CartButton />
+      { !productsOn ? '' : <CartButton /> }
     </div>
   );
 }
