@@ -9,7 +9,7 @@ function InputAddress() {
       const data = await requestData('/users');
       const result = data.filter((user) => user.role === 'seller');
       setSellers(result);
-      console.log(result);
+      // console.log(result);
     } catch (error) {
       console.log(e.message);
     }
