@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 function CheckoutList() {
   const [productList, setProductList] = useState([]);
+  const [loadedProducts, setLoadedProducts] = useState(false);
   console.log(productList);
 
   const getProducts = async () => {
@@ -10,7 +11,12 @@ function CheckoutList() {
   };
 
   useEffect(() => {
-    getProducts();
+    try {
+      getProducts();
+      setLoadedProducts(true);
+    } catch (error) {
+      setLoadedProducts(false);
+    }
   }, []);
 
   return (
@@ -68,7 +74,7 @@ function CheckoutList() {
                   `customer_checkout__element-order-table-sub-total-${index}`
                 }
               >
-                subtotal
+                {product.subTotal}
 
               </td>
               <td
@@ -87,6 +93,17 @@ function CheckoutList() {
         </tbody>
 
       </table>
+
+      <div>
+        {' '}
+        Total R$:
+        {/* { loadedProducts
+          ? (productList.map((product) => {
+            const subtotal = product.subTotal;
+            const total = subtotal.reduce((acc, curr) => acc + curr, 0);
+            return total;
+          })) : ''} */}
+      </div>
 
     </div>
   );
