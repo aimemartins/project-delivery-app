@@ -7,6 +7,8 @@ const getAllById = async (id) => {
   Sale.findAll({ where: { id } });
 };
 
+const getSellerId = async (sellerId) => Sale.findAll({ where: { sellerId } });
+
 const getSaleById = (id) => Sale.findOne({
   where: { id },
   include: [{
@@ -17,9 +19,10 @@ const getSaleById = (id) => Sale.findOne({
 });
 
 const createSale = async (obj) => {
+  console.log(obj);
   const error = schema.validateSale(obj);
   if (error) throw new Error(error.message);
-
+  
   const newSale = await Sale.create(obj);
   return newSale;
 };
@@ -30,6 +33,7 @@ const updateSaleStatus = (id, status) => Sale
 const deleteSale = (id) => Sale.destroy({ where: { id } });
 
 module.exports = {
+  getSellerId,
   getAll,
   createSale,
   updateSaleStatus,
