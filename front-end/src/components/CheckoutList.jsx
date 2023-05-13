@@ -4,20 +4,30 @@ function CheckoutList() {
   const [productList, setProductList] = useState([]);
   const [loadedProducts, setLoadedProducts] = useState(false);
   console.log(productList);
+  console.log('fora do useeffect', loadedProducts);
 
   const getProducts = async () => {
-    const dismountJson = JSON.parse(localStorage.getItem('cart'));
+    const dismountJson = JSON.parse(localStorage.getItem('cart') || []);
     setProductList(dismountJson);
   };
 
   useEffect(() => {
     try {
       getProducts();
-      setLoadedProducts(true);
+      if (loadedProducts.length !== []) {
+        setLoadedProducts(true);
+      }
+      console.log('dentro do useeffect', loadedProducts);
     } catch (error) {
-      setLoadedProducts(false);
+      console.log(e.message);
     }
   }, []);
+
+  function loadingTotal() {
+    const total = productList.reduce((acc, product) => acc + product.subTotal, 0);
+    const totalFixed = total.toFixed(2);
+    return totalFixed.toString().replace('.', ',');
+  }
 
   return (
     <div>
@@ -97,12 +107,7 @@ function CheckoutList() {
       <div>
         {' '}
         Total R$:
-        {/* { loadedProducts
-          ? (productList.map((product) => {
-            const subtotal = product.subTotal;
-            const total = subtotal.reduce((acc, curr) => acc + curr, 0);
-            return total;
-          })) : ''} */}
+        {productList.length !== [] ? loadingTotal() : ''}
       </div>
 
     </div>
