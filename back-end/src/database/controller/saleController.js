@@ -33,7 +33,32 @@ const updateSale = async (req, res, next) => {
     next(e);
   }
 };
+
+const getCustomerSale = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const sales = await SaleService.getCustomerSale(Number(id));
+    return res.status(200).json(sales);
+  } catch (e) {
+    console.log(e.message);
+    next(e);
+  }
+};
+
+const getSellerSale = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const sales = await SaleService.getSellerSale(Number(id));
+    return res.status(200).json(sales);
+  } catch (e) {
+    console.log(e.message);
+    next(e);
+  }
+};
+
 module.exports = {
+  getSellerSale,
+  getCustomerSale,
   getAll,
   createSale,
   updateSale,

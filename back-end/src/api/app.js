@@ -30,6 +30,8 @@ app.post('/login', UserController.login);
 app.get('/sales', SaleController.getAll);
 app.post('/sales', SaleController.createSale);
 app.put('/sales/:id', SaleController.updateSale);
+app.get('/seller/sales/:id', SaleController.getSellerSale);
+app.get('/customer/sales/:id', SaleController.getCustomerSale);
 
 app.get('/products', ProductController.getAll);
 
