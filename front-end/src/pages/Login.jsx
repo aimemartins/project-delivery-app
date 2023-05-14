@@ -21,8 +21,8 @@ function Login() {
 
       setToken(data.token);
       localStorage.setItem('user', JSON.stringify(data));
-      setIsLogged(true);
       setUser(data);
+      setIsLogged(true);
     } catch (error) {
       setFailedTryLogin(true);
       setIsLogged(false);
@@ -43,8 +43,9 @@ function Login() {
       case 'seller':
         return history.push('/seller');
       case 'administrator':
-        return history.push('/administrator');
+        return history.push('/admin/manage');
       default: history.push('/customer/products');
+        break;
       }
     }
   }, [isLogged, user, history]);

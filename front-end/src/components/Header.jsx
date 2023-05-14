@@ -54,9 +54,10 @@ function Header() {
   };
 
   const logout = async (event) => {
+    console.log('oie');
     event.preventDefault();
     try {
-      localStorage.removeItem('token');
+      // localStorage.removeItem('token');
       localStorage.removeItem('user');
       history.push('/login');
       setIsLogged(false);
@@ -78,7 +79,6 @@ function Header() {
           data-testid="customer_products__element-navbar-user-full-name"
         >
           {objUser.name}
-
         </p>
       </div>
       <div>
