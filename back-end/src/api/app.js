@@ -23,7 +23,7 @@ app.use('/images', express.static('public'));
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
-app.get('/users', verifyToken, UserController.getAll);
+app.get('/users', UserController.getAll);
 app.post('/users', UserController.createUser);
 app.post('/admin/user', verifyToken, UserController.createUser);
 app.delete('/users/:id', verifyToken, UserController.deleteUser);

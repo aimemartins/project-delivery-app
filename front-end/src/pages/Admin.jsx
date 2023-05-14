@@ -63,7 +63,7 @@ export default function Admin() {
         {
           (failedRegister)
             ? (
-              <p data-testid="common_register__element-invalid_register">
+              <p data-testid="admin_manage__element-invalid-register">
                 {
                   `Os dados do usuário que informou não estão corretos.
                   Por favor, tente novamente.`
