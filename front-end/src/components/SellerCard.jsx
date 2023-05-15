@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 
 export default function SellerCard(props) {
   const { id, totalPrice, saleDate, deliveryAddress, status, deliveryNumber } = props;
+
+  const valueBr = Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' });
+  const dateSaleBrazil = new Intl.DateTimeFormat('pt-BR').format(new Date(saleDate));
   return (
     <Link
       to={ `/seller/orders/${id}` }
@@ -15,10 +18,10 @@ export default function SellerCard(props) {
         <h2>{status}</h2>
       </div>
       <div data-testid={ `seller_orders__element-order-date-${id}` }>
-        <h2>{saleDate}</h2>
+        <h2>{dateSaleBrazil}</h2>
       </div>
       <div data-testid={ `seller_orders__element-card-price-${id}` }>
-        <h2>{totalPrice}</h2>
+        <h2>{valueBr.format(totalPrice)}</h2>
       </div>
       <div data-testid={ `seller_orders__element-card-address-${id}` }>
         <h2>
