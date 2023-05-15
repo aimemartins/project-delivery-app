@@ -24,9 +24,11 @@ function CheckoutList() {
     return totalFixed.toString().replace('.', ',');
   }
 
-  // removeProduct = (index) => {
-
-  // };
+  function removeProduct(index) {
+    const newProductList = productList.filter((product, i) => i !== index);
+    setProductList(newProductList);
+    localStorage.setItem('cart', JSON.stringify(newProductList));
+  }
 
   return (
     <div>
@@ -95,7 +97,7 @@ function CheckoutList() {
                 >
                   <button
                     type="button"
-                    // onClick={ () => removeProduct(index) }
+                    onClick={ () => removeProduct(index) }
                   >
                     Remover
                   </button>
