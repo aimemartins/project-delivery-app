@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 function CheckoutList() {
   const [productList, setProductList] = useState([]);
-  const [loadedProducts, setLoadedProducts] = useState(false);
-  console.log(productList);
-  console.log('fora do useeffect', loadedProducts);
+  // const [loadedProducts, setLoadedProducts] = useState(false);
 
   const getProducts = async () => {
     const dismountJson = JSON.parse(localStorage.getItem('cart') || []);
@@ -14,10 +12,7 @@ function CheckoutList() {
   useEffect(() => {
     try {
       getProducts();
-      if (loadedProducts.length !== []) {
-        setLoadedProducts(true);
-      }
-      console.log('dentro do useeffect', loadedProducts);
+      // setLoadedProducts(true);
     } catch (error) {
       console.log(e.message);
     }
@@ -28,6 +23,10 @@ function CheckoutList() {
     const totalFixed = total.toFixed(2);
     return totalFixed.toString().replace('.', ',');
   }
+
+  // removeProduct = (index) => {
+
+  // };
 
   return (
     <div>
@@ -43,62 +42,68 @@ function CheckoutList() {
           </tr>
         </thead>
         <tbody>
-          {productList.map((product, index) => (
-            <tr
-              key={ product.id }
-            >
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-item-number-${index}`
-                }
+          {productList.map((product, index) => {
+            const itemNumber = index + 1;
+            return (
+              <tr
+                key={ index }
               >
-                {product.id}
+                <td
+                  data-testid={
+                    `customer_checkout__element-order-table-item-number-${index}`
+                  }
+                >
+                  {itemNumber}
 
-              </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-name-${index}`
-                }
-              >
-                {product.name}
+                </td>
+                <td
+                  data-testid={
+                    `customer_checkout__element-order-table-name-${index}`
+                  }
+                >
+                  {product.name}
 
-              </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-quantity-${index}`
-                }
-              >
-                {product.quantity}
+                </td>
+                <td
+                  data-testid={
+                    `customer_checkout__element-order-table-quantity-${index}`
+                  }
+                >
+                  {product.quantity}
 
-              </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-unit-price-${index}`
-                }
-              >
-                {product.price}
+                </td>
+                <td
+                  data-testid={
+                    `customer_checkout__element-order-table-unit-price-${index}`
+                  }
+                >
+                  {product.price}
 
-              </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-sub-total-${index}`
-                }
-              >
-                {product.subTotal}
+                </td>
+                <td
+                  data-testid={
+                    `customer_checkout__element-order-table-sub-total-${index}`
+                  }
+                >
+                  {product.subTotal}
 
-              </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-remove-${index}`
-                }
-              >
-                <button type="button">
-                  Remover
-                </button>
+                </td>
+                <td
+                  data-testid={
+                    `customer_checkout__element-order-table-remove-${index}`
+                  }
+                >
+                  <button
+                    type="button"
+                    // onClick={ () => removeProduct(index) }
+                  >
+                    Remover
+                  </button>
 
-              </td>
-            </tr>
-          ))}
+                </td>
+              </tr>
+            );
+          })}
 
         </tbody>
 
