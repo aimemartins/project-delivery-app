@@ -11,7 +11,9 @@ function Card({ card }) {
       id: card.id,
       quantity: card.quantity,
       name: card.name,
-      price: card.price };
+      price: card.price,
+      subTotal: card.quantity * card.price,
+    };
     newCart.push(newItem);
     localStorage.setItem('cart', JSON.stringify(newCart));
   };
@@ -64,7 +66,11 @@ function Card({ card }) {
           data-testid={ `customer_products__input-card-quantity-${card.id}` }
           type="number"
           value={ card.quantity }
-          onChange={ (e) => setProductQuant(e.target.value) }
+          onChange={ async (e) => {
+            setProductQuant(e.target.value);
+            card.quantity = Number(e.target.value);
+            await setCart();
+          } }
         />
         <button
           data-testid={ `customer_products__button-card-add-item-${card.id}` }

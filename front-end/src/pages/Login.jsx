@@ -21,7 +21,6 @@ function Login() {
 
       setToken(data.token);
       localStorage.setItem('user', JSON.stringify(data));
-      console.log(data);
       setUser(data);
       setIsLogged(true);
     } catch (error) {
@@ -47,7 +46,8 @@ function Login() {
         return history.push('/seller/orders');
       case 'administrator':
         return history.push('/admin/manage');
-      default: history.push('/customer/orders');
+      default: history.push('/customer/products');
+        break;
       }
     }
   }, [isLogged, user, history]);
