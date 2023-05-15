@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import SellerOrders from './pages/SellerOrders';
 import Login from './pages/Login';
 import CustumerProducts from './pages/CustomerProducts';
 import Register from './pages/Register';
@@ -15,6 +16,7 @@ function App() {
       <Route exact path="/register" component={ Register } />
       <Route exact path="/admin/manage" component={ Admin } />
       <Route path="/customer/products" component={ CustumerProducts } />
+      <Route path="/seller/orders" component={ SellerOrders } />
     </Switch>
   );
 }

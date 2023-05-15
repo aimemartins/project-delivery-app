@@ -20,8 +20,6 @@ function CustumerProducts() {
 
   useEffect(() => getProducts(), []);
 
-  console.log(products);
-
   return (
     <div>
       <Header />

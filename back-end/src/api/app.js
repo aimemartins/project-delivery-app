@@ -38,5 +38,9 @@ app.get('/products', ProductController.getAll);
 app.get('/sales/products', SaleProductController.getAll);
 app.post('/sales/products', SaleProductController.createSaleProduct);
 
+app.get('/saller/orders', SaleController.getAll);
+
+app.get('/sales/seller/:id', SaleController.getSellerId);
+
 app.use(ErrorHandler.handle);
 module.exports = app;
