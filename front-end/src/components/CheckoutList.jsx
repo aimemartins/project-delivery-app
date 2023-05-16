@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 function CheckoutList() {
   const [productList, setProductList] = useState([]);
-  // const [loadedProducts, setLoadedProducts] = useState(false);
 
   const getProducts = async () => {
     const dismountJson = JSON.parse(localStorage.getItem('cart') || []);
@@ -12,7 +11,6 @@ function CheckoutList() {
   useEffect(() => {
     try {
       getProducts();
-      // setLoadedProducts(true);
     } catch (error) {
       console.log(e.message);
     }
@@ -21,8 +19,13 @@ function CheckoutList() {
   function loadingTotal() {
     const total = productList.reduce((acc, product) => acc + product.subTotal, 0);
     const totalFixed = total.toFixed(2);
+    localStorage.setItem('totalPrice', JSON.stringify(totalFixed));
     return totalFixed.toString().replace('.', ',');
   }
+
+  useEffect(() => {
+    loadingTotal();
+  }, [productList]);
 
   function removeProduct(index) {
     const newProductList = productList.filter((product, i) => i !== index);
@@ -79,7 +82,7 @@ function CheckoutList() {
                     `customer_checkout__element-order-table-unit-price-${index}`
                   }
                 >
-                  {product.price}
+                  {(product.price).toString().replace('.', ',')}
 
                 </td>
                 <td
@@ -87,7 +90,7 @@ function CheckoutList() {
                     `customer_checkout__element-order-table-sub-total-${index}`
                   }
                 >
-                  {product.subTotal}
+                  {((product.subTotal).toFixed(2)).toString().replace('.', ',')}
 
                 </td>
                 <td
@@ -111,10 +114,11 @@ function CheckoutList() {
 
       </table>
 
-      <div>
+      <div data-testid="customer_checkout__element-order-total-price">
         {' '}
         Total R$:
-        {productList.length !== [] ? loadingTotal() : ''}
+        {/* {productList.length !== [] ? loadingTotal() : ''} */}
+        {loadingTotal() === '0,00' ? '' : loadingTotal()}
       </div>
 
     </div>

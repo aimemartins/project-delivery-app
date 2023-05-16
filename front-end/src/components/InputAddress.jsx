@@ -3,13 +3,14 @@ import { requestData } from '../services/requests';
 
 function InputAddress() {
   const [sellers, setSellers] = useState([]);
+  const [address, setAddress] = useState('');
+  const [addressNumber, setAddressNumber] = useState('');
 
   const loadingSellers = async () => {
     try {
       const data = await requestData('/users');
       const result = data.filter((user) => user.role === 'seller');
       setSellers(result);
-      // console.log(result);
     } catch (error) {
       console.log(e.message);
     }
@@ -19,20 +20,37 @@ function InputAddress() {
     loadingSellers();
   }, []);
 
+  useEffect(() => {
+    if (address && addressNumber) {
+      localStorage.setItem('deliveryAddress', JSON.stringify(address));
+      localStorage.setItem('deliveryNumber', JSON.stringify(addressNumber));
+    }
+  }, [address, addressNumber]);
+
+  function getSeller(e) {
+    localStorage.setItem('seller', JSON.stringify(e.target.value));
+  }
+
   return (
     <div>
-      <p>olá</p>
       <div>
         <label htmlFor="inputSeller">
           {' '}
           Vendedor:
-          <select id="inputSeller" data-testid="customer_checkout__select-seller">
+          <select
+            id="inputSeller"
+            data-testid="customer_checkout__select-seller"
+            // value={ sellerId }
+            onChange={ (e) => getSeller(e) }
+          >
+            <option>---</option>
             {sellers.map((seller) => (
               <option
                 key={ seller.id }
                 value={ seller.id }
                 type="text"
                 id={ seller.id }
+
               >
                 {seller.name}
               </option>))}
@@ -48,8 +66,8 @@ function InputAddress() {
           <input
             type="text"
             id="address"
-            // value={ email }
-            // onChange={ ({ target: { value } }) => setEmail(value) }
+            value={ address }
+            onChange={ ({ target: { value } }) => setAddress(value) }
             data-testid="customer_checkout__input-address"
           />
         </label>
@@ -61,8 +79,8 @@ function InputAddress() {
           <input
             type="text"
             id="address_number"
-            // value={ email }
-            // onChange={ ({ target: { value } }) => setEmail(value) }
+            value={ addressNumber }
+            onChange={ ({ target: { value } }) => setAddressNumber(value) }
             data-testid="customer_checkout__input-address-number"
           />
         </label>
