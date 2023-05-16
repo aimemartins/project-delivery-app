@@ -10,8 +10,10 @@ function CartButton() {
   const sumTotal = () => {
     setTimeout(() => {
       const carrinho = JSON.parse(localStorage.getItem('cart'));
+
       if (!carrinho) return setIsDisabled(true);
       const priceArray = carrinho.map((e) => e.subTotal);
+
       if (priceArray.length === 0) return setIsDisabled(true);
 
       const total = priceArray.reduce((a, c) => a + c);
