@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Orders from '../components/Orders';
 import { requestData } from '../services/requests';
 
-// TA DANDO ERROR
 export default function AllOrders() {
   const [user, setUser] = useState({});
   const [orders, setOrders] = useState([]);
@@ -13,27 +12,29 @@ export default function AllOrders() {
     setUser(objUser);
   }, []);
 
-  const getCustomerOrders = async () => {
-    try {
-      const myOrders = await requestData(`/customer/sales/${user.id}`);
-      setOrders(myOrders);
-      setFetchError(false);
-    } catch (e) {
-      console.log(e.message);
-      setFetchError(true);
-    }
-  };
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        let myOrders = [];
 
-  const getSellerOrders = async () => {
-    try {
-      const myOrders = await requestData(`/seller/sales/${user.id}`);
-      setOrders(myOrders);
-      setFetchError(false);
-    } catch (e) {
-      console.log(e.message);
-      setFetchError(true);
+        if (user.role === 'customer') {
+          myOrders = await requestData(`/customer/sales/${user.id}`);
+        } else if (user.role === 'seller') {
+          myOrders = await requestData(`/seller/sales/${user.id}`);
+        }
+
+        setOrders(myOrders);
+        setFetchError(false);
+      } catch (e) {
+        console.log(e.message);
+        setFetchError(true);
+      }
+    };
+
+    if (user.id) {
+      fetchOrders();
     }
-  };
+  }, [user]);
 
   const getComponent = (e) => (
     <Orders
@@ -45,54 +46,18 @@ export default function AllOrders() {
     />
   );
 
-  if (user.role === 'customer') {
-    getCustomerOrders();
+  if (user.role === 'customer' || user.role === 'seller') {
     return (
       <>
-        {
-          (fetchError)
-            ? (
-              <p>
-                {
-                  `Os dados informados não estão corretos.
-                  Por favor, tente novamente.`
-                }
-              </p>
-            )
-            : null
-        }
-        {
-          (!orders) ? ''
-            : orders.map((e) => getComponent(e))
-        }
+        {fetchError && (
+          <p>
+            Os dados informados não estão corretos. Por favor, tente novamente.
+          </p>
+        )}
+        {orders && orders.map((e) => getComponent(e))}
       </>
     );
   }
 
-  if (user.role === 'seller') {
-    getSellerOrders();
-    return (
-      <>
-        {
-          (fetchError)
-            ? (
-              <p>
-                {
-                  `Os dados informados não estão corretos.
-                  Por favor, tente novamente.`
-                }
-              </p>
-            )
-            : null
-        }
-        {
-          (!orders) ? ''
-            : orders.map((e) => getComponent(e))
-        }
-      </>
-    );
-  }
-  return (
-    <p>ERROR</p>
-  );
+  return <p>Loading</p>;
 }
