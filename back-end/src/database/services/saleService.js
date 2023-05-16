@@ -13,10 +13,18 @@ const getSaleById = (id) => Sale.findOne({
 });
 
 const createSale = async (obj) => {
-  const error = schema.validateSale(obj);
+  const post = {
+    userId: obj.userId,
+    sellerId: obj.sellerId,
+    totalPrice: obj.totalPrice,
+    deliveryAddress: obj.deliveryAddress,
+    deliveryNumber: obj.deliveryNumber,
+    status: obj.status,
+  };
+  const error = schema.validateSale(post);
   if (error) throw new Error(error.message);
 
-  const newSale = await Sale.create(obj);
+  const newSale = await Sale.create(post);
   return newSale;
 };
 
