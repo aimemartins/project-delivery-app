@@ -16,6 +16,7 @@ export default function AppProvider({ children }) {
 
   const values = useMemo(() => ({
     users,
+    setUsers,
   }), [
     users,
 

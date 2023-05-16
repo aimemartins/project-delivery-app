@@ -10,7 +10,6 @@ const saleObjSchema = Joi.object({
   totalPrice: Joi.number().required(),
   deliveryAddress: Joi.string().required(),
   deliveryNumber: Joi.string().required(),
-  saleDate: Joi.date(),
   status: Joi.string().required(),
 });
 

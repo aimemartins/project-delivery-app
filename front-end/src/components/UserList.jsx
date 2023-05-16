@@ -1,48 +1,36 @@
-import React, { useContext } from 'react';
-import AppContext from '../context/AppContext';
-import { requestData, requestDeleteUser } from '../services/requests';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function UserList() {
-  const {
-    users,
-    setUsers,
-  } = useContext(AppContext);
+import { requestDeleteUser } from '../services/requests';
 
-  const handleDelete = async (id) => {
+export default function UserList({ id, name, email, role }) {
+  const handleDelete = async (myId) => {
     try {
-      await requestDeleteUser(`/users/${id}`);
-      const newUsers = await requestData('/users');
-
-      setUsers(newUsers);
+      await requestDeleteUser(`/users/${myId}`);
     } catch (e) {
       console.log(e.message);
     }
   };
   return (
-    <>
-      <h2>Lista de usuários</h2>
-      <br />
-      <h3>Item</h3>
-      <h3>Nome</h3>
-      <h3>E-mail</h3>
-      <h3>Tipo</h3>
-      <h3>Excluir</h3>
-      {
-        (users.map((e) => (
-          <div className="user_list" key={ e.id }>
-            <h2>{e.id}</h2>
-            <h2>{e.name}</h2>
-            <h3>{e.email}</h3>
-            <h3>{e.role}</h3>
-            <button
-              type="button"
-              onClick={ () => handleDelete(e.id) }
-            >
-              Excluir
-            </button>
-          </div>
-        )))
-      }
-    </>
+    <div className="user_list">
+      <h2 data-testid={ `admin_manage__element-user-table-item-number-${id}` }>{id}</h2>
+      <h2 data-testid={ `admin_manage__element-user-table-name-${id}` }>{name}</h2>
+      <h3 data-testid={ `admin_manage__element-user-table-email-${id}` }>{email}</h3>
+      <h3 data-testid={ `admin_manage__element-user-table-role-${id}` }>{role}</h3>
+      <button
+        type="button"
+        onClick={ () => handleDelete(id) }
+        data-testid={ `admin_manage__element-user-table-remove-${id}` }
+      >
+        Excluir
+      </button>
+    </div>
   );
 }
+
+UserList.propTypes = {
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  role: PropTypes.string.isRequired,
+};

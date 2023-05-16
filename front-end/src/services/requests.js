@@ -22,4 +22,10 @@ export const requestDeleteUser = async (endpoint) => {
   const { data } = await api.delete(endpoint);
   return data;
 };
+
+export const requestSales = async (endpoint) => {
+  const data = await api.get(endpoint);
+  return { data };
+};
+
 export default api;
