@@ -1,4 +1,4 @@
-const { Sale, User } = require('../models');
+const { Sale, User, SaleProduct } = require('../models');
 const schema = require('./validations/validateSchemas');
 
 const getAll = () => Sale.findAll();
@@ -29,9 +29,14 @@ const createSale = async (obj) => {
   };
   const error = schema.validateSale(post);
   if (error) throw new Error(error.message);
-
   const newSale = await Sale.create(post);
 
+  const saleProductArray = obj.cart.map((e) => ({
+       saleId: newSale.id,
+       productId: e.id,
+       quantity: e.quantity,
+    }));
+    await SaleProduct.bulkCreate(saleProductArray);
   return newSale;
 };
 

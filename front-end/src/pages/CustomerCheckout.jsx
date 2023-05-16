@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import InputAddress from '../components/InputAddress';
 import CheckoutList from '../components/CheckoutList';
-// import { requestLogin } from '../services/requests';
+import { requestLogin } from '../services/requests';
 
 function CustomerCheckout() {
+  const history = useHistory();
   async function postSale() {
     const post = {
       userId: JSON.parse(localStorage.getItem('user')).id,
@@ -13,26 +15,21 @@ function CustomerCheckout() {
       deliveryAddress: JSON.parse(localStorage.getItem('deliveryAddress')),
       deliveryNumber: JSON.parse(localStorage.getItem('deliveryNumber')),
       status: 'Pendente',
+      cart: JSON.parse(localStorage.getItem('cart')),
     };
     try {
-      await requestLogin('/sales', post);
+      const result = await requestLogin('/sales', post);
+      console.log('RESULT', result);
+      return result;
     } catch (error) {
       console.log(error);
     }
   }
 
-  function postSaleProduct() {
-    const post = {
-      saleId,
-      productId,
-      quantity,
-    };
-    console.log(post);
-  }
   async function finalizeOrder() {
-    postSale();
-    // capturar os salesId que já existem no banco e o productId e quantity do localStorage e fazer um post para cada um deles
-    postSaleProduct();
+    const post = await postSale();
+    console.log('POST', post);
+    history.push(`/customer/orders/${post.id}`);
   }
 
   useEffect(() => {
@@ -49,6 +46,7 @@ function CustomerCheckout() {
         <button
           type="button"
           onClick={ () => finalizeOrder() }
+          data-testid="customer_checkout__button-submit-order"
         >
           Finalizar Pedido
         </button>

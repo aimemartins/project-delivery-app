@@ -93,14 +93,13 @@ function CheckoutList() {
                   {((product.subTotal).toFixed(2)).toString().replace('.', ',')}
 
                 </td>
-                <td
-                  data-testid={
-                    `customer_checkout__element-order-table-remove-${index}`
-                  }
-                >
+                <td>
                   <button
                     type="button"
                     onClick={ () => removeProduct(index) }
+                    data-testid={
+                      `customer_checkout__element-order-table-remove-${index}`
+                    }
                   >
                     Remover
                   </button>
