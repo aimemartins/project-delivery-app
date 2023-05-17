@@ -4,6 +4,7 @@ import SellerOrders from './pages/SellerOrders';
 import Login from './pages/Login';
 import CustumerProducts from './pages/CustomerProducts';
 import Register from './pages/Register';
+import CustomerCheckout from './pages/CustomerCheckout';
 import Admin from './pages/Admin';
 import OrderDetailsPage from './pages/OrderDetailsPage';
 
@@ -19,6 +20,9 @@ function App() {
       <Route exact path="/customer/products" component={ CustumerProducts } />
       <Route exact path="/seller/orders" component={ SellerOrders } />
       <Route exact path="/seller/orders/:id" component={ OrderDetailsPage } />
+      <Route path="/customer/products" component={ CustumerProducts } />
+      <Route path="/customer/checkout" component={ CustomerCheckout } />
+      <Route path="/seller/orders" component={ SellerOrders } />
     </Switch>
   );
 }
