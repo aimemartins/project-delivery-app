@@ -1,4 +1,3 @@
-
 const productModel = (sequelize, DataTypes) => {
   const Product = sequelize.define('Product', {
     id: {
@@ -7,12 +6,12 @@ const productModel = (sequelize, DataTypes) => {
     },
     name: DataTypes.STRING,
     price: DataTypes.DECIMAL,
-    url_image: DataTypes.STRING
+    url_image: DataTypes.STRING,
   }, {
     timestamps: false,
     underscored: true,
     tableName: 'products',
-  })
+  });
 
   return Product;
 };
