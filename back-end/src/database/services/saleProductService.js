@@ -13,7 +13,10 @@ const createSaleProduct = async (saleId, productId, quantity) => {
   return saleProduct;
 };
 
+const getSaleProductsId = async (saleId) => SaleProduct.findAll({ where: { saleId } });
+
 module.exports = {
+  getSaleProductsId,
   getAll,
   createSaleProduct,
 };

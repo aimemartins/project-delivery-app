@@ -36,11 +36,14 @@ app.put('/sales/:id', SaleController.updateSale);
 app.get('/products', ProductController.getAll);
 
 app.get('/sales/products', SaleProductController.getAll);
+app.get('/sale/products/:id', SaleProductController.getSaleProductsId);
 app.post('/sales/products', SaleProductController.createSaleProduct);
 
 app.get('/saller/orders', SaleController.getAll);
 
 app.get('/sales/seller/:id', SaleController.getSellerId);
+
+app.get('/customer/orders/:id', SaleController.getSaleOrderById);
 
 app.use(ErrorHandler.handle);
 module.exports = app;
