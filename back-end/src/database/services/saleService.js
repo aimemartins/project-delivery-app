@@ -3,9 +3,7 @@ const schema = require('./validations/validateSchemas');
 
 const getAll = () => Sale.findAll();
 
-const getAllById = async (id) => {
-  Sale.findAll({ where: { id } });
-};
+const getAllById = async (id) => Sale.findOne({ where: { id } });
 
 const getSellerId = async (sellerId) => Sale.findAll({ where: { sellerId } });
 

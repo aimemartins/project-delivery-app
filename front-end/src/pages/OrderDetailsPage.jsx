@@ -14,13 +14,13 @@ export default function OrderDetailsPage() {
     requestData(`/customer/orders/${id}`)
       .then((result) => setOrders(result)).finally(() => setLoading(false));
   };
-  const getSaleProducts = () => {
-    requestData(`/sale/products/${id}`)
-      .then((result) => setOrders(result)).finally(() => setLoading(false));
-  };
+  // const getSaleProducts = () => {
+  //   requestData(`/sale/products/${id}`)
+  //     .then((result) => setOrders(result)).finally(() => setLoading(false));
+  // };
   console.log(orders);
   useEffect(() => getorder(), []);
-  useEffect(() => getSaleProducts(), []);
+  // useEffect(() => getSaleProducts(), []);
   return (
     <section>
       <div>

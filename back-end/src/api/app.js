@@ -30,8 +30,9 @@ app.delete('/users/:id', verifyToken, UserController.deleteUser);
 app.post('/login', UserController.login);
 
 app.get('/sales', SaleController.getAll);
+app.get('/sales/:id', SaleController.getAllById);
 app.post('/sales', SaleController.createSale);
-app.put('/sales/:id', SaleController.updateSale);
+app.patch('/sales/:id', SaleController.updateSale);
 
 app.get('/products', ProductController.getAll);
 app.get('/products/:id', ProductController.getById);
