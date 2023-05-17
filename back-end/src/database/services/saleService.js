@@ -1,7 +1,13 @@
-const { Sale, User } = require('../models');
+const { Sale, User, SaleProduct } = require('../models');
 const schema = require('./validations/validateSchemas');
 
 const getAll = () => Sale.findAll();
+
+const getAllById = async (id) => {
+  Sale.findAll({ where: { id } });
+};
+
+const getSellerId = async (sellerId) => Sale.findAll({ where: { sellerId } });
 
 const getSaleById = (id) => Sale.findOne({
   where: { id },
@@ -13,10 +19,24 @@ const getSaleById = (id) => Sale.findOne({
 });
 
 const createSale = async (obj) => {
-  const error = schema.validateSale(obj);
+  const post = {
+    userId: obj.userId,
+    sellerId: obj.sellerId,
+    totalPrice: obj.totalPrice,
+    deliveryAddress: obj.deliveryAddress,
+    deliveryNumber: obj.deliveryNumber,
+    status: obj.status,
+  };
+  const error = schema.validateSale(post);
   if (error) throw new Error(error.message);
+  const newSale = await Sale.create(post);
 
-  const newSale = await Sale.create(obj);
+  const saleProductArray = obj.cart.map((e) => ({
+       saleId: newSale.id,
+       productId: e.id,
+       quantity: e.quantity,
+    }));
+    await SaleProduct.bulkCreate(saleProductArray);
   return newSale;
 };
 
@@ -36,9 +56,11 @@ const deleteSale = (id) => Sale.destroy({ where: { id } });
 module.exports = {
   getCustomerSale,
   getSellerSale,
+  getSellerId,
   getAll,
   createSale,
   updateSaleStatus,
   deleteSale,
   getSaleById,
+  getAllById,
 };
