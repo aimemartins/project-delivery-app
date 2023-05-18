@@ -9,18 +9,6 @@ const getAll = async (_req, res, next) => {
   }
 };
 
-const getAllById = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    console.log('ID', id);
-    const sales = await SaleService.getAllById(Number(id));
-    console.log('SALES', sales);
-    return res.status(200).json(sales);
-  } catch (e) {
-    next(e);
-}
-};
-
 const getSaleOrderById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -56,6 +44,28 @@ const updateSale = async (req, res, next) => {
   }
 };
 
+const getCustomerSale = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const sales = await SaleService.getCustomerSale(Number(id));
+    return res.status(200).json(sales);
+  } catch (e) {
+    console.log(e.message);
+    next(e);
+  }
+};
+
+const getSellerSale = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const sales = await SaleService.getSellerSale(Number(id));
+    return res.status(200).json(sales);
+  } catch (e) {
+    console.log(e.message);
+    next(e);
+  }
+};
+
 const getSellerId = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -69,11 +79,35 @@ const getSellerId = async (req, res, next) => {
   }
 };
 
+const getSaleAndProducts = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await SaleService.getSaleAndProducts(Number(id));
+    return res.status(200).json(result);
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+};
+
+const getAllById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const sales = await SaleService.getAllById(Number(id));
+    return res.status(200).json(sales);
+  } catch (e) {
+    next(e);
+}
+};
+
 module.exports = {
   getSaleOrderById,
+  getAllById,
+  getSaleAndProducts,
+  getSellerSale,
+  getCustomerSale,
   getSellerId,
   getAll,
   createSale,
   updateSale,
-  getAllById,
 };

@@ -15,9 +15,7 @@ module.exports = async (req, res, next) => {
   if (!token) return res.status(401).json({ message: 'Token not found' });
 
   try {
-    console.log(token, secret);
     const payload = decodeToken(token);
-    console.log(payload);
     const { email } = payload;
     const user = await UserService.getByEmail(email);
     if (!user) return res.status(401).json({ message: 'Expired or invalid token' });

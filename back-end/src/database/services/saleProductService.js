@@ -1,4 +1,4 @@
-const { SaleProduct, Sale, Product } = require('../models');
+const { SaleProduct, Sale, Product, User } = require('../models');
 
 const getAll = () => SaleProduct.findAll();
 
@@ -15,8 +15,22 @@ const createSaleProduct = async (saleId, productId, quantity) => {
 
 const getSaleProductsId = async (saleId) => SaleProduct.findAll({ where: { saleId } });
 
+const getProducts = (id) => Sale.findOne({ 
+  where: { id },
+  include: [{
+    model: User,
+    as: 'seller',
+    attributes: { exclude: ['password', 'id', 'email', 'role'] },
+  }, {
+    model: Product,
+    as: 'products',
+    through: { attributes: ['quantity'] },
+  }],
+});
+
 module.exports = {
   getSaleProductsId,
   getAll,
   createSaleProduct,
+  getProducts,
 };

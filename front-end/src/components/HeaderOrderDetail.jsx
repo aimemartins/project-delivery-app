@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { requestUpdate, requestData } from '../services/requests';
+import { requestData, requestUpdate } from '../services/requests';
 
 export default function HeaderOrderDetail(props) {
   const [newStatus, setNewStatus] = useState('');
@@ -81,7 +81,7 @@ export default function HeaderOrderDetail(props) {
 }
 
 HeaderOrderDetail.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   saleDate: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
 //   totalPrice: PropTypes.string.isRequired,

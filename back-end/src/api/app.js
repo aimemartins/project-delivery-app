@@ -30,9 +30,13 @@ app.delete('/users/:id', verifyToken, UserController.deleteUser);
 app.post('/login', UserController.login);
 
 app.get('/sales', SaleController.getAll);
-app.get('/sales/:id', SaleController.getAllById);
 app.post('/sales', SaleController.createSale);
+
+app.get('/sales/:id', SaleController.getAllById);
 app.patch('/sales/:id', SaleController.updateSale);
+app.get('/seller/sales/:id', SaleController.getSellerSale);
+app.get('/customer/sales/:id', SaleController.getCustomerSale);
+app.get('/customer/orders/:id', SaleController.getSaleAndProducts);
 
 app.get('/products', ProductController.getAll);
 app.get('/products/:id', ProductController.getById);
@@ -40,6 +44,7 @@ app.get('/products/:id', ProductController.getById);
 app.get('/sales/products', SaleProductController.getAll);
 app.get('/sale/products/:id', SaleProductController.getSaleProductsId);
 app.post('/sales/products', SaleProductController.createSaleProduct);
+app.get('/sales/products/:id', SaleProductController.getProducts);
 
 app.get('/saller/orders', SaleController.getAll);
 
