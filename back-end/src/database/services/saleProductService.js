@@ -13,7 +13,7 @@ const createSaleProduct = async (saleId, productId, quantity) => {
   return saleProduct;
 };
 
-const getProducts = (id) => Sale.findAll({ 
+const getProducts = (id) => Sale.findOne({ 
   where: { id },
   include: [{
     model: User,
