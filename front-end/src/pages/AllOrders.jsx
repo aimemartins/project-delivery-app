@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Orders from '../components/Orders';
 import { requestData } from '../services/requests';
+import Header from '../components/Header';
 
 export default function AllOrders() {
   const [user, setUser] = useState({});
@@ -49,6 +50,7 @@ export default function AllOrders() {
   if (user.role === 'customer' || user.role === 'seller') {
     return (
       <>
+        <Header />
         {fetchError && (
           <p>
             Os dados informados não estão corretos. Por favor, tente novamente.

@@ -7,7 +7,7 @@ export default function HeaderOrderDetail(props) {
   const [disabledPreparing, setDisabledPreparing] = useState(false);
   const [disabledDispatch, setDisabledDispatch] = useState(true);
   const { id, saleDate, status } = props;
-  // const dateSaleBrazil = new Intl.DateTimeFormat('pt-BR').format(new Date(saleDate));
+  const dateSaleBrazil = new Intl.DateTimeFormat('pt-BR').format(new Date(saleDate));
 
   async function StatusPending() {
     await requestUpdate(`/sales/${id}`, { id, status: 'Pendente' });
@@ -42,7 +42,7 @@ export default function HeaderOrderDetail(props) {
         </h1>
       </div>
       <div data-testid="seller_order_details__element-order-details-label-order-date">
-        <h1>{ saleDate }</h1>
+        <h1>{ dateSaleBrazil }</h1>
       </div>
       <div>
         <h1>
