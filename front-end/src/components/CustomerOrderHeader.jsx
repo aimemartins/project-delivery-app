@@ -1,28 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { requestData, requestUpdate } from '../services/requests';
 
 export default function CustomerOrderHeader({ sale }) {
   const { id, seller, date, status } = sale;
   const [isDisabled, setIsDisabled] = useState(true);
   const [failSetStatus, setFailSetStatus] = useState(false);
+  const [newStatus, setNewStatus] = useState('');
   const newDate = new Intl.DateTimeFormat('pt-BR').format(new Date(date));
   const statDTest = 'customer_order_details__element-order-details-label-delivery-status';
 
   useEffect(() => {
-    if (status === 'Em Trânsito') {
+    if (newStatus || status === 'Em Trânsito') {
       setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
     }
-  }, [status]);
+  }, [newStatus, status]);
 
-  const handleClick = () => {
+  async function StatusDelivered() {
     try {
-      console.log('oie');
+      await requestUpdate(`/sales/${id}`, { id, status: 'Entregue' });
+      const result = await requestData(`/sales/${id}`);
+
+      setNewStatus(result.status);
       setFailSetStatus(false);
     } catch (e) {
       console.log(e);
       setFailSetStatus(true);
     }
-  };
+  }
   return (
     <table>
       <thead>
@@ -49,13 +56,13 @@ export default function CustomerOrderHeader({ sale }) {
           <th
             data-testid={ statDTest }
           >
-            {status}
+            {newStatus || status}
 
           </th>
           <th>
             <button
               type="button"
-              onClick={ () => handleClick() }
+              onClick={ () => StatusDelivered() }
               disabled={ isDisabled }
               data-testid="customer_order_details__button-delivery-check"
             >
@@ -65,7 +72,7 @@ export default function CustomerOrderHeader({ sale }) {
           </th>
         </tr>
       </thead>
-      { failSetStatus ? <p>Error setting Status</p> : null }
+      { failSetStatus ? console.log('error setting delivered') : null }
     </table>
   );
 }
