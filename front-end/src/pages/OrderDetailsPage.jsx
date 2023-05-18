@@ -6,34 +6,72 @@ import { requestData } from '../services/requests';
 import SellerOrderDetails from '../components/SellerOrderDetails';
 
 export default function OrderDetailsPage() {
+  const [productsArray, setProductsArray] = useState([]);
   const { id } = useParams();
-  console.log('pathname', id);
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
-  const getorder = () => {
-    requestData(`/customer/orders/${id}`)
-      .then((result) => setOrders(result)).finally(() => setLoading(false));
+
+  const getorder = async () => {
+    try {
+      const result = await requestData(`/sales/products/${id}`);
+      setOrders(result);
+      console.log(result);
+      const productsFilter = result.products.map((e) => ({
+        name: e.name,
+        price: e.price,
+        quantity: e.SaleProduct.quantity,
+      }));
+      setProductsArray(productsFilter);
+      setLoading(false);
+    } catch (e) {
+      console.log(e);
+    }
   };
-  // const getSaleProducts = () => {
-  //   requestData(`/sale/products/${id}`)
-  //     .then((result) => setOrders(result)).finally(() => setLoading(false));
-  // };
-  console.log(orders);
+
   useEffect(() => getorder(), []);
-  // useEffect(() => getSaleProducts(), []);
+
+  if (loading) {
+    return (
+      <h2>Loading...</h2>
+    );
+  }
+
   return (
     <section>
       <div>
         <Header />
       </div>
       <div>
-        { loading ? <p> Loading...</p>
-          : <HeaderOrderDetail { ... orders } />}
+        <HeaderOrderDetail { ... orders } />
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Sub-Total</th>
+          </tr>
+        </thead>
+        {
+          productsArray.map((e, i) => (
+            <SellerOrderDetails
+              key={ i + 1 }
+              index={ i + 1 }
+              name={ e.name }
+              price={ e.price }
+              quantity={ e.quantity }
+            />
+          ))
+        }
+      </table>
 
-      </div>
-      <div>
-        <SellerOrderDetails />
-      </div>
+      <h2 data-testid="seller_order_details__element-order-total-price">
+        Total: R$
+        {' '}
+        {orders.totalPrice.replace('.', ',')}
+      </h2>
     </section>
   );
 }

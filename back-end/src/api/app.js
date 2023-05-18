@@ -31,6 +31,7 @@ app.post('/login', UserController.login);
 
 app.get('/sales', SaleController.getAll);
 app.post('/sales', SaleController.createSale);
+
 app.get('/sales/:id', SaleController.getAllById);
 app.patch('/sales/:id', SaleController.updateSale);
 app.get('/seller/sales/:id', SaleController.getSellerSale);
