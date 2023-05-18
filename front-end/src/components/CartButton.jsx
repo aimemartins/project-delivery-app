@@ -28,7 +28,6 @@ function CartButton() {
       sumTotal();
     }));
     const inputs = document.querySelectorAll('input');
-    console.log(inputs);
     inputs.forEach((e) => e.addEventListener('input', () => {
       sumTotal();
     }));

@@ -14,7 +14,6 @@ export default function CustomerOrderDetail() {
   async function getSale() {
     try {
       const myData = await requestData(`/sales/products/${id}`);
-      console.log(myData);
       setData(myData);
       const newHeadObj = {
         id: myData.id,

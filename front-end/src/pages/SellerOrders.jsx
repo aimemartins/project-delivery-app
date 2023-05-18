@@ -5,14 +5,12 @@ import { requestData } from '../services/requests';
 
 function SellerOrder() {
   const getId = JSON.parse(localStorage.getItem('user'));
-  console.log(getId);
   const [loading, setLoading] = useState(true);
   const [sales, setSales] = useState([]);
   const getSales = () => {
     requestData(`/sales/seller/${getId.id}`)
       .then((result) => setSales(result)).finally(() => setLoading(false));
   };
-  console.log(sales);
   useEffect(() => getSales(), []);
   return (
     <section>
