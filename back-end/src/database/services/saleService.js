@@ -38,12 +38,22 @@ const createSale = async (obj) => {
   return newSale;
 };
 
+const getSellerSale = async (sellerId) => Sale.findAll({
+  where: { sellerId },
+});
+
+const getCustomerSale = async (userId) => Sale.findAll({
+  where: { userId },
+});
+
 const updateSaleStatus = (id, status) => Sale
   .update({ status }, { where: { id } });
 
 const deleteSale = (id) => Sale.destroy({ where: { id } });
 
 module.exports = {
+  getCustomerSale,
+  getSellerSale,
   getSellerId,
   getAll,
   createSale,

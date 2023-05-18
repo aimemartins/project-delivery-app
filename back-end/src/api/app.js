@@ -33,6 +33,9 @@ app.get('/sales', SaleController.getAll);
 app.get('/sales/:id', SaleController.getAllById);
 app.post('/sales', SaleController.createSale);
 app.patch('/sales/:id', SaleController.updateSale);
+app.put('/sales/:id', SaleController.updateSale);
+app.get('/seller/sales/:id', SaleController.getSellerSale);
+app.get('/customer/sales/:id', SaleController.getCustomerSale);
 
 app.get('/products', ProductController.getAll);
 app.get('/products/:id', ProductController.getById);
