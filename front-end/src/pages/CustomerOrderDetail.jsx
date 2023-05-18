@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { requestData } from '../services/requests';
 import CustomerOrderHeader from '../components/CustomerOrderHeader';
 import CustomerOrderProducts from '../components/CustomerOrderProducts';
+import Header from '../components/Header';
 
 export default function CustomerOrderDetail() {
   const [headerObj, setHeaderObj] = useState({});
@@ -46,6 +47,7 @@ export default function CustomerOrderDetail() {
   }
   return (
     <>
+      <Header />
       <h1>Detalhes do Pedido</h1>
       <CustomerOrderHeader sale={ headerObj } />
       <table>

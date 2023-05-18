@@ -35,6 +35,7 @@ export default function OrderDetailsPage() {
       <h2>Loading...</h2>
     );
   }
+
   return (
     <section>
       <div>
