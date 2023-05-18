@@ -9,18 +9,6 @@ const getAll = async (_req, res, next) => {
   }
 };
 
-const getAllById = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    console.log('ID', id);
-    const sales = await SaleService.getAllById(Number(id));
-    console.log('SALES', sales);
-    return res.status(200).json(sales);
-  } catch (e) {
-    next(e);
-}
-};
-
 const getSaleOrderById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -122,5 +110,4 @@ module.exports = {
   getAll,
   createSale,
   updateSale,
-  getAllById,
 };
