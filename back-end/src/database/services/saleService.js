@@ -7,6 +7,14 @@ const getAllById = async (id) => Sale.findOne({ where: { id } });
 
 const getSellerId = async (sellerId) => Sale.findAll({ where: { sellerId } });
 
+const getSaleAndProducts = (id) => Sale.findOne({
+  where: { id },
+  include: [{
+    model: User,
+    as: 'seller',
+  }],
+});
+
 const getSaleById = (id) => Sale.findOne({
   where: { id },
   include: [{
@@ -61,4 +69,5 @@ module.exports = {
   deleteSale,
   getSaleById,
   getAllById,
+  getSaleAndProducts,
 };
