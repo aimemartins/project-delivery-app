@@ -19,7 +19,6 @@ function CustomerCheckout() {
     };
     try {
       const result = await requestLogin('/sales', post);
-      console.log('RESULT', result);
       return result;
     } catch (error) {
       console.log(error);
@@ -28,7 +27,6 @@ function CustomerCheckout() {
 
   async function finalizeOrder() {
     const post = await postSale();
-    console.log('POST', post);
     history.push(`/customer/orders/${post.id}`);
   }
 

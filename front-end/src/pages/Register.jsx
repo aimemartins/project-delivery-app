@@ -20,8 +20,6 @@ export default function Register() {
       await requestLogin('/users', { email, password, name });
 
       const data = await requestLogin('/login', { email, password });
-      console.log(data);
-
       setUser(data);
       setToken(user.token);
       // localStorage.setItem('token', token);
