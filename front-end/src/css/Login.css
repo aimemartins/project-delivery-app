@@ -32,10 +32,10 @@ body {
   background-color: white;
   content: '';
   display: block;
-  margin-left: -5px;
-  margin-top: -17px;
   height: 1px;
   width: 67px;
+  margin-left: -5px;
+  margin-top: -17px;
 }
 
 .card-register {
@@ -48,10 +48,10 @@ body {
   background-color: white;
   content: '';
   display: block;
-  margin-left: -5px;
-  margin-top: -17px;
   height: 1px;
   width: 104px;
+  margin-left: -5px;
+  margin-top: -17px;
 }
 
 .card-content label {
@@ -68,22 +68,22 @@ body {
 
 .card-content-area input {
   background-color: transparent;
-  border: none;
-  margin-top: 10px;
-  border-bottom: 1px solid #e1e1e1;
-  padding: 0 5px;
   color: white;
+  border: none;
+  border-bottom: 1px solid #e1e1e1;
+  margin-top: 10px;
+  padding: 0 5px;
   outline: none;
 }
 
 .card-footer {
   background-color: #a13854;
-  display: inline;
+  color: #e1e1e1;
   border: none;
+  display: inline;
   flex-direction: column;
   height: 40px;
   width: 100%;
-  color: #e1e1e1;
   margin: 10px 0;
 }
 
@@ -91,7 +91,7 @@ body {
   background-color: #504aac;
   border: none;
   color: #e1e1e1;
+  margin: 10px 0;
   height: 40px;
   width: 100%;
-  margin: 10px 0;
 }
