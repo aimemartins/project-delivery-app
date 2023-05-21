@@ -54,7 +54,6 @@ function Header() {
   };
 
   const logout = async (event) => {
-    console.log('oie');
     event.preventDefault();
     try {
       // localStorage.removeItem('token');

@@ -28,4 +28,9 @@ export const requestSales = async (endpoint) => {
   return { data };
 };
 
+export const requestUpdate = async (endpoint, body) => {
+  const data = await api.patch(endpoint, body);
+  return { data };
+};
+
 export default api;

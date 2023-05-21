@@ -5,6 +5,10 @@ import { requestData } from '../services/requests';
 
 export default function AppProvider({ children }) {
   const [users, setUsers] = useState([]);
+  // const [deliveryAddress, setDeliveryAddress] = useState('');
+  // const [sellerId, setSellerId] = useState(1);
+  // const [totalPrice, setTotalPrice] = useState(0);
+  // const [userId, setUserId] = useState(0);
 
   useEffect(() => {
     requestData('/users').then((result) => setUsers(result));
@@ -15,11 +19,14 @@ export default function AppProvider({ children }) {
     setUsers,
   }), [
     users,
+
   ]);
 
   return (
     <AppContext.Provider value={ values }>
-      { children }
+      <div>
+        { children }
+      </div>
     </AppContext.Provider>
   );
 }

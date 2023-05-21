@@ -39,9 +39,7 @@ function Login() {
   }, [email, password, isDisable]);
 
   useEffect(() => {
-    console.log(isLogged);
     if (isLogged) {
-      console.log(user);
       switch (user.role) {
       case 'seller':
         return history.push('/seller/orders');
@@ -53,13 +51,27 @@ function Login() {
     }
   }, [isLogged, user, history]);
 
+  useEffect(() => {
+    const myUser = JSON.parse(localStorage.getItem('user'));
+    if (myUser) {
+      switch (myUser.role) {
+      case 'seller':
+        return history.push('/seller/orders');
+      case 'administrator':
+        return history.push('/admin/manage');
+      default: history.push('/customer/products');
+        break;
+      }
+    }
+  }, [history]);
+
   return (
     <section id="login">
-      <form className="card">
-        <div className="card-header">
-          <h2>IBeer</h2>
-        </div>
-        <label htmlFor="email-input" className="card-content-area">
+      <div className="card-header">
+        <h2>IBeer</h2>
+      </div>
+      <form>
+        <label htmlFor="email-input">
           <input
             className="card-header"
             type="email"
