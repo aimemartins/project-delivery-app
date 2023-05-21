@@ -1,62 +1,61 @@
 body {
-  padding: 0;
-  margin: 0;
-  background-image: url("./images/bearondeliver.png");
+  background-image: url('./images/bearondeliver.png');
   background-position: center;
   background-repeat: no-repeat;
-  background-color: #6cd9ed;
+  margin: 0;
+  padding: 0;
 }
 
-#login {
-  display: flex;
+.login {
   align-items: center;
-  justify-content: center;
+  display: flex;
+  font-family: Cambria , Cochin , Georgia , Times , serif;
   height: 100vh;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  justify-content: center;
 }
 
 .card {
   background-color: rgba(19, 19, 19, 0.795);
-  padding: 40px;
   border-radius: 20px;
+  padding: 40px;
   width: 220px;
 }
 
 
 .card-header {
-  padding-bottom: 50px;
+  color: white;
   opacity: 1;
-  color: #fff;
+  padding-bottom: 50px;
 }
 
-.card-header::after {
-  content: "";
-  width: 67px;
-  height: 1px;
-  background-color: #fff;
+.card-header:after {
+  background-color: white;
+  content: '';
   display: block;
-  margin-top: -17px;
+  height: 1px;
   margin-left: -5px;
+  margin-top: -17px;
+  width: 67px;
 }
 
 .card-register {
-  padding-bottom: 50px;
+  color: white;
   opacity: 1;
-  color: #fff;
+  padding-bottom: 50px;
 }
 
-.card-register::after {
-  content: "";
-  width: 104px;
-  height: 1px;
-  background-color: #fff;
+.card-register:after {
+  background-color: white;
+  content: '';
   display: block;
-  margin-top: -17px;
+  height: 1px;
   margin-left: -5px;
+  margin-top: -17px;
+  width: 104px;
 }
 
 .card-content label {
-  color: #fff;
+  color: white;
   font-size: 12px;
   opacity: 0.8;
 }
@@ -64,40 +63,35 @@ body {
 .card-content-area {
   display: flex;
   flex-direction: column;
-  padding:10px 0;
+  padding: 10px 0;
 }
 
 .card-content-area input {
-  margin-top: 10px;
-  padding:0 5px;
   background-color: transparent;
-  border:none;
+  border: none;
   border-bottom: 1px solid #e1e1e1;
+  color: white;
+  margin-top: 10px;
   outline: none;
-  color: #fff;
+  padding: 0 5px;
 }
 
 .card-footer {
+  background-color: #a13854;
+  border: none;
+  color: #e1e1e1;
   display: inline;
   flex-direction: column;
-  margin-top: 10px;
-  margin-left: 25px;
-}
-
-.card-footer {
-  width: 100%;
   height: 40px;
-  background-color: #a13854;
-  border:none;
-  color:#e1e1e1;
   margin: 10px 0;
+  width: 100%;
 }
 
-.submit{
-  width: 100%;
-  height: 40px;
+.submit {
   background-color: #504aac;
-  border:none;
-  color:#e1e1e1;
+  border: none;
+  color: #e1e1e1;
+  height: 40px;
   margin: 10px 0;
+  width: 100%;
 }

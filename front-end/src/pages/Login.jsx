@@ -66,12 +66,12 @@ function Login() {
   }, [history]);
 
   return (
-    <section id="login">
-      <div className="card-header">
-        <h2>IBeer</h2>
-      </div>
-      <form>
-        <label htmlFor="email-input">
+    <section className="login">
+      <form className="card">
+        <div className="card-header">
+          <h2>IBeer</h2>
+        </div>
+        <label htmlFor="email-input" className="card-content-area">
           <input
             className="card-header"
             type="email"
