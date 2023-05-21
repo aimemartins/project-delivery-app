@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import verifyLogin from '../utils/validateLogin';
 import { requestLogin, setToken } from '../services/requests';
+import '../css/Login.css';
 // import { positiveLogo } from '../images';
 
 function Login() {
@@ -53,11 +54,14 @@ function Login() {
   }, [isLogged, user, history]);
 
   return (
-    <>
-      <form>
-        <label htmlFor="email-input">
+    <section id="login">
+      <form className="card">
+        <div className="card-header">
+          <h2>IBeer</h2>
+        </div>
+        <label htmlFor="email-input" className="card-content-area">
           <input
-            className="common_login__input-email"
+            className="card-header"
             type="email"
             id="email"
             value={ email }
@@ -66,7 +70,7 @@ function Login() {
             placeholder="Login"
           />
         </label>
-        <label htmlFor="password-input">
+        <label htmlFor="password-input" className="card-content-area">
           <input
             type="password"
             value={ password }
@@ -75,23 +79,26 @@ function Login() {
             placeholder="Senha"
           />
         </label>
+        <div className="card-footer">
+          <button
+            className="submit"
+            data-testid="common_login__button-login"
+            type="submit"
+            onClick={ (event) => login(event) }
+            disabled={ isDisable }
+          >
+            Login
+          </button>
 
-        <button
-          data-testid="common_login__button-login"
-          type="submit"
-          onClick={ (event) => login(event) }
-          disabled={ isDisable }
-        >
-          Login
-        </button>
-
-        <button
-          data-testid="common_login__button-register"
-          type="button"
-          onClick={ () => history.push('/register') }
-        >
-          Registrar
-        </button>
+          <button
+            className="submit"
+            data-testid="common_login__button-register"
+            type="button"
+            onClick={ () => history.push('/register') }
+          >
+            Registrar
+          </button>
+        </div>
       </form>
       {
         (failedTryLogin)
@@ -105,7 +112,7 @@ function Login() {
           )
           : null
       }
-    </>
+    </section>
   );
 }
 
