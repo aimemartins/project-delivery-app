@@ -34,8 +34,8 @@ body {
   display: block;
   height: 1px;
   margin-left: -5px;
-  width: 67px;
   margin-top: -17px;
+  width: 67px;
 }
 
 .card-register {
@@ -50,8 +50,8 @@ body {
   display: block;
   height: 1px;
   margin-left: -5px;
-  width: 104px;
   margin-top: -17px;
+  width: 104px;
 }
 
 .card-content label {
@@ -69,8 +69,8 @@ body {
 .card-content-area input {
   background-color: transparent;
   border: none;
-  color: white;
   border-bottom: 1px solid #e1e1e1;
+  color: white;
   margin-top: 10px;
   outline: none;
   padding: 0 5px;
