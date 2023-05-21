@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import verifyLogin from '../utils/validateLogin';
 import { requestLogin, setToken } from '../services/requests';
+import '../css/Login.css';
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -41,12 +42,17 @@ export default function Register() {
   }, [email, password, name]);
 
   return (
-    <>
-      <form>
-        <label htmlFor="name-input">
-          Nome
+    <section id="login">
+      <form className="card">
+        <div className="card-register">
+          <h2>Cadastro</h2>
+        </div>
+        <label
+          htmlFor="name-input"
+          className="card-content-area"
+        >
           <input
-            className="common_register__input-name"
+            className="card-header"
             type="text"
             value={ name }
             onChange={ ({ target: { value } }) => setName(value) }
@@ -54,9 +60,9 @@ export default function Register() {
             placeholder="Seu nome"
           />
         </label>
-        <label htmlFor="email-input">
+        <label htmlFor="email-input" className="card-content-area">
           <input
-            className="common_register__input-email"
+            className="card-header"
             type="text"
             value={ email }
             onChange={ ({ target: { value } }) => setEmail(value) }
@@ -64,8 +70,9 @@ export default function Register() {
             placeholder="seu-email@site.com.br"
           />
         </label>
-        <label htmlFor="password-input">
+        <label htmlFor="password-input" className="card-content-area">
           <input
+            className="card-header"
             type="password"
             value={ password }
             onChange={ ({ target: { value } }) => setPassword(value) }
@@ -73,15 +80,17 @@ export default function Register() {
             placeholder="*******"
           />
         </label>
-
-        <button
-          data-testid="common_register__button-register"
-          type="submit"
-          disabled={ isDisabled }
-          onClick={ (event) => register(event) }
-        >
-          Cadastrar
-        </button>
+        <div className="card-footer">
+          <button
+            className="submit"
+            data-testid="common_register__button-register"
+            type="submit"
+            disabled={ isDisabled }
+            onClick={ (event) => register(event) }
+          >
+            Cadastrar
+          </button>
+        </div>
       </form>
       {
         (failedRegister)
@@ -95,6 +104,6 @@ export default function Register() {
           )
           : null
       }
-    </>
+    </section>
   );
 }
