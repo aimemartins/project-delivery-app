@@ -6,7 +6,7 @@ body {
   padding: 0;
 }
 
-#login {
+.login {
   align-items: center;
   display: flex;
   font-family: Cambria , Cochin , Georgia , Times , serif;
@@ -28,7 +28,7 @@ body {
   padding-bottom: 50px;
 }
 
-.card-header::after {
+.card-header:after {
   background-color: white;
   content: '';
   display: block;
@@ -44,7 +44,7 @@ body {
   padding-bottom: 50px;
 }
 
-.card-register::after {
+.card-register:after {
   background-color: white;
   content: '';
   display: block;

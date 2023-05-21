@@ -42,7 +42,7 @@ export default function Register() {
   }, [email, password, name]);
 
   return (
-    <section id="login">
+    <section className="login">
       <form className="card">
         <div className="card-register">
           <h2>Cadastro</h2>

@@ -66,7 +66,7 @@ function Login() {
   }, [history]);
 
   return (
-    <section id="login">
+    <section className="login">
       <form className="card">
         <div className="card-header">
           <h2>IBeer</h2>
