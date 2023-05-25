@@ -9,6 +9,16 @@ const getAll = async (_req, res, next) => {
   }
 };
 
+const getSaleOrderById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const orderId = await SaleService.getSaleById(id);
+    return res.status(200).json(orderId);
+  } catch (e) {
+    next(e);
+  }
+};
+
 const createSale = async (req, res, next) => {
   try {
     const saleObj = req.body;
@@ -61,6 +71,7 @@ const getSellerId = async (req, res, next) => {
     const { id } = req.params;
     console.log(id);
     const result = await SaleService.getSellerId(Number(id));
+    console.log(result);
     return res.status(200).json(result);
   } catch (e) {
     console.log(e);
@@ -90,6 +101,7 @@ const getAllById = async (req, res, next) => {
 };
 
 module.exports = {
+  getSaleOrderById,
   getAllById,
   getSaleAndProducts,
   getSellerSale,

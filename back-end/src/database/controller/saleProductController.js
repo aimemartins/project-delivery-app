@@ -10,6 +10,16 @@ const getAll = async (req, res, next) => {
   }
 };
 
+const getSaleProductsId = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const products = await SaleProductService.getSaleProductsId(id);
+    return res.status(200).json(products);
+  } catch (e) {
+    next(e);
+  }
+};
+
 const createSaleProduct = async (req, res, next) => {
   try {
     const { saleId, productId, quantity } = req.body;
@@ -32,6 +42,7 @@ const getProducts = async (req, res, next) => {
   }
 };
 module.exports = {
+  getSaleProductsId,
   getProducts,
   getAll,
   createSaleProduct,
