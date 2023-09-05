@@ -28,7 +28,13 @@ Esse foi o último projeto elaborado durante o Módulo de __Back-end__ , porém,
 <a href="https://github.com/aimemartins">
   <img src="https://avatars.githubusercontent.com/u/108954069?v=4" width="80px" alt="Aimê Martins" style="border-radius: 50%;"> <p>Aimê Martins</p>
 </div>
+  
 <div style="display: inline-block;">
+<a href="https://github.com/gabriel-R-Lemes">
+  <img src="https://avatars.githubusercontent.com/u/108953357?v=4" width="80px" alt="Gabriel Lemes"/> <p>Gabriel Lemes</p>
+</div>
+  
+<div>
 <a href="https://github.com/JoaoFabris">
   <img src="https://avatars.githubusercontent.com/u/102261182?v=4" width="80px" alt="João Fabris"/> <p>João Fabris</p>
 </div>
@@ -37,10 +43,6 @@ Esse foi o último projeto elaborado durante o Módulo de __Back-end__ , porém,
   <img src="https://avatars.githubusercontent.com/u/104857637?v=4" width="80px" alt="Paulo Victor"/> <p>Paulo Victor</p>
 </div>
 
-<div>
-<a href="https://github.com/PVPrado">
-  <img src="https://avatars.githubusercontent.com/u/104857637?v=4" width="80px" alt="Paulo Victor"/> <p>Paulo Victor</p>
-</div>
   
 
 
