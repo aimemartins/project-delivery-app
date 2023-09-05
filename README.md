@@ -28,9 +28,18 @@ Esse foi o último projeto elaborado durante o Módulo de __Back-end__ , porém,
 
 
 ## Elaboração
-<a href="https://github.com/aimemartins">
-  <img src="https://avatars.githubusercontent.com/u/108954069?v=4" width="80px" alt="Aimê Martins"/> <p>Aimê Martins</p>
 
+<a href="https://github.com/aimemartins">
+  <img src="https://avatars.githubusercontent.com/u/108954069?v=4" width="80px" alt="Aimê Martins" style="border-radius: 50%;"> <p>Aimê Martins</p>
+  
+<a href="https://github.com/JoaoFabris">
+  <img src="https://avatars.githubusercontent.com/u/102261182?v=4" width="80px" alt="João Fabris"/> <p>João Fabris</p>
+
+<a href="https://github.com/PVPrado">
+  <img src="https://avatars.githubusercontent.com/u/104857637?v=4" width="80px" alt="Paulo Victor"/> <p>Paulo Victor</p>
+
+<a href="https://github.com/PVPrado">
+  <img src="https://avatars.githubusercontent.com/u/104857637?v=4" width="80px" alt="Paulo Victor"/> <p>Paulo Victor</p>
 
 ## Sobre
 Esse será o seu projeto mais completo até agora! Nessa aplicação, seu grupo será responsável por criar e integrar tanto o back-end quanto o front-end, criando uma plataforma de delivery de cerveja. 🍻
